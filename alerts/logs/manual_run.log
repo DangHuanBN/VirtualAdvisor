@@ -1,0 +1,190 @@
+2025-05-03 01:37:40,610 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 01:37:40,668 - INFO - Đã gửi thông báo cho user 12: test: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung.
+2025-05-03 01:37:40,668 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học quá chậm so với thời lượng đề xuất.
+2025-05-03 01:37:40,668 - INFO - Đã gửi thông báo cho user 12: test1: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung.
+2025-05-03 01:37:40,673 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn đang học quá chậm so với thời lượng đề xuất.
+2025-05-03 01:37:40,675 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung.
+2025-05-03 01:37:40,675 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 01:39:42,405 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 01:39:42,456 - INFO - Đã gửi thông báo cho user 12: test: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung.
+2025-05-03 01:39:42,457 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học quá chậm so với thời lượng đề xuất.
+2025-05-03 01:39:42,459 - INFO - Đã gửi thông báo cho user 12: test1: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung.
+2025-05-03 01:39:42,460 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn đang học quá chậm so với thời lượng đề xuất.
+2025-05-03 01:39:42,461 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung.
+2025-05-03 01:39:42,461 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 01:41:34,164 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 01:41:34,208 - INFO - Kiểm tra cảnh báo cho user 12, lecture 56 - test
+2025-05-03 01:41:34,208 - INFO -   - Progress: 35.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.00h
+2025-05-03 01:41:34,208 - INFO -   - Ngày bắt đầu: 2025-05-02, Số ngày đã trôi qua: 1
+2025-05-03 01:41:34,216 - INFO - Đã gửi thông báo cho user 12: test: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.00h) < MaxHours*0.5 (1.00h)
+2025-05-03 01:41:34,216 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 01:41:34,216 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 01:41:34,216 - INFO -   - Ngày bắt đầu: 2025-05-02, Số ngày đã trôi qua: 1
+2025-05-03 01:41:34,218 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học quá chậm so với thời lượng đề xuất. | Lý do: time_spent (1.12h) < MaxHours*0.6 (66.60h) và progress (100.0%) > 66%
+2025-05-03 01:41:34,220 - INFO - Đã gửi thông báo cho user 12: test1: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (1.12h) < MaxHours*0.5 (55.50h)
+2025-05-03 01:41:34,220 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 01:41:34,221 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 01:41:34,221 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 01:41:34,222 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn đang học quá chậm so với thời lượng đề xuất. | Lý do: time_spent (0.01h) < MaxHours*0.6 (1.20h) và progress (100.0%) > 66%
+2025-05-03 01:41:34,223 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 01:41:34,224 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 01:59:14,535 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 01:59:14,564 - ERROR - Lỗi khi lấy dữ liệu kiểm tra: 1146 (42S02): Table 'virtualadvisor.test_results' doesn't exist
+2025-05-03 01:59:14,564 - INFO - Không tìm thấy dữ liệu kiểm tra/thi cho user 12, lecture 56
+2025-05-03 01:59:14,564 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 01:59:14,564 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 01:59:14,565 - INFO -   - Ngày bắt đầu: 2025-05-02, Số ngày đã trôi qua: 1
+2025-05-03 01:59:14,565 - INFO - Đã gửi thông báo cho user 12: test1: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (1.12h) < MaxHours*0.5 (55.50h)
+2025-05-03 01:59:14,565 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 01:59:14,566 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 01:59:14,566 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 01:59:14,567 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 01:59:14,567 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:04:52,832 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:04:52,859 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:04:52,859 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:04:52,859 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:04:52,859 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:04:52,859 - INFO -   - Ngày bắt đầu: 2025-05-02, Số ngày đã trôi qua: 1
+2025-05-03 02:04:52,866 - INFO - Đã gửi thông báo cho user 12: test1: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (1.12h) < MaxHours*0.5 (55.50h)
+2025-05-03 02:04:52,866 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:04:52,866 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:04:52,866 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:04:52,871 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:04:52,871 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:08:43,558 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:08:43,580 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:08:43,580 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:08:43,580 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:08:43,580 - INFO -   - Progress: 0%, Status: hoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:08:43,580 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:08:43,580 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:08:43,580 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 1, Số ngày tối đa: 3, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:08:43,580 - INFO - Đã gửi thông báo cho user 12: test1: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (1.12h) < MaxHours*0.5 (55.50h)
+2025-05-03 02:08:43,580 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:08:43,580 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:08:43,580 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:08:43,580 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:08:43,580 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:09:39,140 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:09:39,181 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:09:39,181 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:09:39,183 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:09:39,183 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:09:39,183 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:09:39,184 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:09:39,184 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 1, Số ngày tối đa: 3, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:09:39,185 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:09:39,185 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:09:39,186 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:09:39,187 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:09:39,187 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:26:15,923 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:26:15,955 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:26:15,955 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:26:15,957 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài baithi. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:26:15,958 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:26:15,958 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:26:15,958 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:26:15,959 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:26:15,959 - ERROR - Lỗi khi phân tích và gửi cảnh báo: cannot access local variable 'max_days' where it is not associated with a value
+2025-05-03 02:26:15,960 - ERROR - Kiểm tra cảnh báo học tập thất bại!
+2025-05-03 02:30:08,319 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:30:08,358 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:30:08,358 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:30:08,366 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài test. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:30:08,367 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:30:08,367 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:30:08,367 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:30:08,368 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:30:08,369 - INFO - Đã gửi thông báo cho user 12: test1: Tiến độ học của bạn đang học ({actual_hours_per_day:.2f}h/ngày) chậm hơn đề xuất ({expected_hours_per_day:.2f}h/ngày). Hãy điều chỉnh để hoàn thành đúng hạn. | Lý do: Tốc độ học 0.04h/ngày < 60% tốc độ đề xuất (37.00h/ngày)
+2025-05-03 02:30:08,369 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 1, Số ngày tối đa: 3, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:30:08,371 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:30:08,371 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:30:08,371 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:30:08,372 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:30:08,372 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:31:49,450 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:31:49,478 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:31:49,479 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:31:49,480 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài test. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:31:49,481 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:31:49,481 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:31:49,481 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:31:49,483 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:31:49,483 - INFO - Đã gửi thông báo cho user 12: test1: Tiến độ học của bạn đang học ({actual_hours_per_day:.2f}h/ngày) chậm hơn đề xuất ({expected_hours_per_day:.2f}h/ngày). Hãy điều chỉnh để hoàn thành đúng hạn. | Lý do: Tốc độ học 0.04h/ngày < 60% tốc độ đề xuất (37.00h/ngày)
+2025-05-03 02:31:49,485 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 1, Số ngày tối đa: 3, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:31:49,485 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:31:49,486 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:31:49,486 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:31:49,486 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:31:49,487 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:32:26,991 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:32:27,018 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:32:27,018 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:32:27,027 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài test. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:32:27,028 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:32:27,028 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:32:27,028 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:32:27,030 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:32:27,031 - INFO - Đã gửi thông báo cho user 12: test1: Tiến độ học của bạn đang học (0.04h/ngày) chậm hơn đề xuất (37.00h/ngày). Hãy điều chỉnh để hoàn thành đúng hạn. | Lý do: Tốc độ học 0.04h/ngày < 60% tốc độ đề xuất (37.00h/ngày)
+2025-05-03 02:32:27,032 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 1, Số ngày tối đa: 3, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:32:27,032 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:32:27,032 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:32:27,032 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:32:27,033 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:32:27,033 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:36:37,259 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:36:37,287 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:36:37,287 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:36:37,289 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài test. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:36:37,289 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:36:37,289 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:36:37,289 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:36:37,289 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:36:37,289 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 1, Số ngày tối đa: 3, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:36:37,289 - INFO - Đã gửi thông báo cho user 12: test1: Tiến độ học của bạn đang học (0.04h/ngày) chậm hơn đề xuất (37.00h/ngày). Hãy điều chỉnh để hoàn thành đúng hạn. | Lý do: Tốc độ học 0.04h/ngày < 60% tốc độ đề xuất (37.00h/ngày)
+2025-05-03 02:36:37,295 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:36:37,295 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:36:37,295 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:36:37,296 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:36:37,296 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:53:23,077 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:53:23,108 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:53:23,108 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:53:23,112 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài test. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:53:23,113 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:53:23,113 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:53:23,113 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:53:23,114 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:53:23,114 - ERROR - Lỗi khi phân tích và gửi cảnh báo: cannot access local variable 'max_days' where it is not associated with a value
+2025-05-03 02:53:23,115 - ERROR - Kiểm tra cảnh báo học tập thất bại!
+2025-05-03 02:54:16,208 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:54:16,239 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:54:16,239 - INFO -   - Progress: 35.0%, Status: hoanthanh
+2025-05-03 02:54:16,247 - INFO - Đã gửi thông báo cho user 12: test: Bạn có thể chưa nắm vững kiến thức trong bài test. Hãy xem lại kiến thức cơ bản. | Lý do: Ước tính điểm: 3.50 < 5.0
+2025-05-03 02:54:16,262 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:54:16,262 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:54:16,262 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:54:16,262 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:54:16,262 - INFO - Đã gửi thông báo cho user 12: test1: Tiến độ học của bạn đang học (0.04h/ngày) chậm hơn đề xuất (15.86h/ngày). Hãy điều chỉnh để hoàn thành đúng hạn. | Lý do: Tốc độ học 0.04h/ngày < 60% tốc độ đề xuất (15.86h/ngày)
+2025-05-03 02:54:16,266 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 161, Số ngày tối đa: 7, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:54:16,268 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:54:16,268 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:54:16,269 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:54:16,270 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:54:16,270 - INFO - Kiểm tra cảnh báo học tập thành công!
+2025-05-03 02:54:57,648 - INFO - Bắt đầu kiểm tra cảnh báo học tập...
+2025-05-03 02:54:57,673 - INFO - Phân tích cảnh báo kiểm tra/thi cho user 12, lecture 56 - test
+2025-05-03 02:54:57,673 - INFO -   - Progress: 66.0%, Status: hoanthanh
+2025-05-03 02:54:57,681 - INFO - Kiểm tra cảnh báo cho user 12, lecture 57 - test1
+2025-05-03 02:54:57,681 - INFO -   - Progress: 0%, Status: chuahoanthanh, MaxHours: 111.0h, Time Spent: 1.12h
+2025-05-03 02:54:57,681 - INFO -   - Ngày bắt đầu: 2025-04-02, Số ngày đã trôi qua: 31
+2025-05-03 02:54:57,687 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đã đăng ký khóa học nhưng chưa bắt đầu học. | Lý do: Progress = 0%, Ngày hiện tại - ngày bắt đầu = 31 ngày >= 3
+2025-05-03 02:54:57,689 - INFO - Đã gửi thông báo cho user 12: test1: Tiến độ học của bạn đang học (0.04h/ngày) chậm hơn đề xuất (15.86h/ngày). Hãy điều chỉnh để hoàn thành đúng hạn. | Lý do: Tốc độ học 0.04h/ngày < 60% tốc độ đề xuất (15.86h/ngày)
+2025-05-03 02:54:57,691 - INFO - Đã gửi thông báo cho user 12: test1: Bạn đang học khá chậm, hãy đẩy nhanh tiến độ. | Lý do: Số trang ước tính: 161, Số ngày tối đa: 7, Ngày đã học: 31, Progress: 0% < 80%
+2025-05-03 02:54:57,691 - INFO - Kiểm tra cảnh báo cho user 12, lecture 58 - tettttt
+2025-05-03 02:54:57,691 - INFO -   - Progress: 100.0%, Status: hoanthanh, MaxHours: 2.0h, Time Spent: 0.01h
+2025-05-03 02:54:57,691 - INFO -   - Ngày bắt đầu: 2025-05-03, Số ngày đã trôi qua: 0
+2025-05-03 02:54:57,691 - INFO - Đã gửi thông báo cho user 12: tettttt: Bạn hoàn thành bài quá nhanh. Hãy chắc chắn bạn đã hiểu kỹ nội dung. | Lý do: status = hoanthanh, time_spent (0.01h) < MaxHours*0.5 (1.00h)
+2025-05-03 02:54:57,691 - INFO - Kiểm tra cảnh báo học tập thành công!

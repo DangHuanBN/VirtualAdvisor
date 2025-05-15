@@ -1,0 +1,65 @@
+{
+  "lecture_id": 56,
+  "questions": [
+    {
+      "question": "Trí tuệ nhân tạo là gì?",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "4"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Thủ đô của Việt Nam là gì?",
+      "options": {
+        "A": "Hà Nội",
+        "B": "TP. Hồ Chí Minh",
+        "C": "Đà Nẵng",
+        "D": "Hải Phòng"
+      },
+      "correct": "A"
+    },
+    {
+      "question": "Số nào là số nguyên tố?",
+      "options": {
+        "A": "4",
+        "B": "6",
+        "C": "7",
+        "D": "9"
+      },
+      "correct": "A"
+    },
+    {
+      "question": "Màu của lá cây là?",
+      "options": {
+        "A": "Đỏ",
+        "B": "Vàng",
+        "C": "Xanh",
+        "D": "Tím"
+      },
+      "correct": "A"
+    },
+    {
+      "question": "10 / 2 bằng mấy?",
+      "options": {
+        "A": "2",
+        "B": "3",
+        "C": "4",
+        "D": "5"
+      },
+      "correct": "A"
+    },
+    {
+      "question": "Mặt trời mọc ở hướng nào?",
+      "options": {
+        "A": "Tây",
+        "B": "Nam",
+        "C": "Đông",
+        "D": "Bắc"
+      },
+      "correct": "A"
+    }
+  ]
+}

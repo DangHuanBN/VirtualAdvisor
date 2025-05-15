@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài kiểm tra | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/student.css">
+    <link rel="stylesheet" href="../css/courses.css">
+    <script src="../js/modules/common.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+            --text-color: #34495e;
+            --light-bg: #f9f9f9;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Thông báo cảnh báo */
+        .messages-container {
+            margin-bottom: 20px;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+        }
+        
+        .alert-info {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            color: #2980b9;
+        }
+        
+        .alert-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #3498db;
+        }
+        
+        .alert-message {
+            flex: 1;
+        }
+        
+        .alert-message strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .alert-message p {
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        /* Cảnh báo học tập */
+        .learning-alert {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            padding: 20px;
+        }
+        
+        .learning-alert .alert-icon {
+            color: #f39c12;
+        }
+        
+        .learning-alert .alert-message strong {
+            color: #27ae60;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .learning-alert .alert-message div {
+            line-height: 1.5;
+            color: #34495e;
+        }
+        
+        .quiz-layout-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 90%;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .page-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
+        
+        .page-header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .timer-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .timer-icon {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        .timer-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            color: var(--text-color);
+        }
+        
+        .timer-warning {
+            color: #e74c3c;
+        }
+        
+        /* CSS cho trạng thái đã nộp bài */
+        .timer-stopped {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .timer-container.submitted {
+            background-color: #e8f8f5;
+            border-left: 3px solid #2ecc71;
+        }
+        
+        .back-button {
+            background-color: #f1f1f1;
+            color: #505050;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-button:hover {
+            background-color: #e0e0e0;
+            transform: translateX(-5px);
+        }
+        
+        .quiz-view-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            min-height: 500px;
+            position: relative;
+        }
+        
+        .loading-quiz {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        /* Cải tiến giao diện form bài kiểm tra */
+        .quiz-form {
+            margin-top: 20px;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .quiz-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .quiz-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .quiz-instructions {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 15px;
+        }
+        
+        .quiz-meta {
+            background-color: var(--light-bg);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-top: 10px;
+        }
+        
+        /* Cải tiến câu hỏi */
+        .quiz-questions {
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+            gap: 25px;
+        }
+        
+        .quiz-question {
+            background: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .quiz-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .question-header h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .question-content p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        .question-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(52, 152, 219, 0.05);
+        }
+        
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            accent-color: var(--primary-color);
+        }
+        
+        .quiz-option label {
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-block;
+            width: calc(100% - 30px);
+            vertical-align: middle;
+        }
+        
+        /* Nút nộp bài */
+        .quiz-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .submit-quiz-btn, .review-quiz-btn {
+            background: linear-gradient(to right, var(--primary-color), #2980b9);
+            color: white;
+            border: none;
+            padding: 15px 70px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .submit-quiz-btn:hover, .review-quiz-btn:hover {
+            background: linear-gradient(to right, #2980b9, var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .submit-quiz-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .submit-loading-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Kết quả bài kiểm tra */
+        .quiz-results-summary {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .result-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid;
+            flex: 1;
+            max-width: 250px;
+        }
+        
+        .result-item:nth-child(1) {
+            border-top-color: var(--primary-color);
+        }
+        
+        .result-item:nth-child(2) {
+            border-top-color: var(--secondary-color);
+        }
+        
+        .result-item:nth-child(3) {
+            border-top-color: var(--accent-color);
+        }
+        
+        .result-label {
+            display: block;
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        /* Đáp án đúng và sai */
+        .correct-option {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: #2ecc71;
+        }
+        
+        .wrong-option {
+            background: rgba(231, 76, 60, 0.15);
+            border-color: #e74c3c;
+        }
+        
+        .correct-answer {
+            color: #2ecc71;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .wrong-answer {
+            color: #e74c3c;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            background: #34495e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Nút "Xem lại bài làm" */
+        .review-quiz-btn {
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+        
+        .review-quiz-btn:hover {
+            background: linear-gradient(to right, #8e44ad, #9b59b6);
+            box-shadow: 0 6px 15px rgba(155, 89, 182, 0.4);
+        }
+        
+        /* Modal đã làm bài */
+        .quiz-completed-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .quiz-completed-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quiz-completed-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .quiz-completed-content p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .quiz-completed-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .quiz-completed-btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .view-results-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .view-results-btn:hover {
+            background: #2980b9;
+        }
+        
+        .return-course-btn {
+            background: #f1f1f1;
+            color: #333;
+            border: none;
+        }
+        
+        .return-course-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .quiz-questions {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .question-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-view-container {
+                padding: 20px 15px;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .page-header-right {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .quiz-results-summary {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .result-item {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                </span>
+            </div>
+            <div class="admin-title">
+                <h1>BÀI KIỂM TRA</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="../../index.html" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="quiz-layout-container">
+        <!-- Messages Container -->
+        <div id="messages-container" class="messages-container"></div>
+        
+        <!-- Page Header with Back Button -->
+        <div class="page-header">
+            <h2 id="quiz-title">Bài kiểm tra</h2>
+            <div class="page-header-right">
+                <div id="timer-container" class="timer-container">
+                    <i class="fas fa-clock timer-icon"></i>
+                    <span id="timer-display" class="timer-display">--:--:--</span>
+                </div>
+                <button id="backToCourse" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Quay lại khóa học
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="quiz-view-container">
+            <div class="loading-quiz">
+                <i class="fas fa-spinner fa-pulse" style="margin-right: 10px;"></i> Đang tải bài kiểm tra...
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+            <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+        </div>
+    </footer>
+
+    <script src="../js/modules/auth-helper.js"></script>
+    <script src="../js/student.js"></script>
+    <script src="../js/modules/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Lấy thông tin từ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const lectureId = urlParams.get('lectureId');
+            const courseId = urlParams.get('courseId');
+            const title = urlParams.get('title') || 'Bài kiểm tra';
+            
+            // Cập nhật tiêu đề
+            document.getElementById('quiz-title').textContent = title;
+            document.title = `${title} | AiEducation`;
+            
+            // Xử lý nút quay lại
+            document.getElementById('backToCourse').addEventListener('click', function() {
+                if (courseId) {
+                    window.location.href = `courses.html?courseId=${courseId}`;
+                } else {
+                    window.location.href = 'courses.html';
+                }
+            });
+            
+            // Kiểm tra có lectureId không
+            if (!lectureId) {
+                document.getElementById('quiz-container').innerHTML = `
+                    <div class="error-message">
+                        <p>Không tìm thấy thông tin bài kiểm tra. Vui lòng quay lại và thử lại.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Kiểm tra xem đã làm bài này chưa - vẫn cho phép làm nếu đã hoàn thành
+            let isRetaking = false;
+            try {
+                const completionStatus = await checkQuizCompletion(lectureId);
+                if (completionStatus.hasCompleted) {
+                    // Hiển thị thông báo đã làm bài trước đó nhưng vẫn cho làm lại
+                    isRetaking = true;
+                    showRetakingMessage();
+                }
+            } catch (error) {
+                console.error("Lỗi khi kiểm tra trạng thái hoàn thành:", error);
+                // Tiếp tục vì lỗi kiểm tra không nên ngăn chặn quá trình làm bài
+            }
+            
+            // Khởi tạo bài kiểm tra
+            const quizContainer = document.getElementById('quiz-container');
+            const quizData = await initializeQuiz(parseInt(lectureId), title, quizContainer, isRetaking);
+            
+            // Hiển thị thông tin debug về dữ liệu từ server
+            console.log('DEBUG - Khởi tạo timer với dữ liệu:', quizData);
+            
+            // Khởi tạo bộ đếm thời gian nếu có dữ liệu
+            if (quizData && quizData.timeLimit) {
+                console.log(`DEBUG - quizData.timeLimit = ${quizData.timeLimit} phút`);
+                initializeTimer(quizData.timeLimit);
+            } else {
+                console.warn('DEBUG - Không có thông tin thời gian làm bài từ server');
+            }
+        });
+        
+        /**
+         * Hiển thị thông báo làm lại bài
+         */
+        function showRetakingMessage() {
+            const messagesContainer = document.getElementById('messages-container');
+            messagesContainer.innerHTML = `
+                <div class="alert alert-info">
+                    <div class="alert-content">
+                        <i class="fas fa-info-circle alert-icon"></i>
+                        <div class="alert-message">
+                            <strong>Bạn đã hoàn thành bài kiểm tra này trước đó!</strong>
+                            <p>Bạn có thể làm lại bài kiểm tra này để củng cố kiến thức, tuy nhiên điểm số và tiến độ học tập sẽ chỉ được tính cho lần làm đầu tiên.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        /**
+         * Kiểm tra xem người dùng đã hoàn thành bài kiểm tra này chưa
+         * @param {number} lectureId - ID bài giảng
+         * @returns {Promise<Object>} - Thông tin trạng thái hoàn thành
+         */
+        async function checkQuizCompletion(lectureId) {
+            try {
+                const userId = getCurrentUserId();
+                const response = await fetch(`/api/quiz/${lectureId}/status/${userId}`);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.warn(`Lỗi kiểm tra trạng thái bài kiểm tra (${response.status}): ${errorText}`);
+                    return { hasCompleted: false }; // Mặc định cho phép làm nếu không kiểm tra được
+                }
+                
+                const result = await response.json();
+                return {
+                    hasCompleted: result.success && result.data && result.data.hasCompleted,
+                    status: result.data?.status || 'chuahoanthanh',
+                    progress: result.data?.progress || 0
+                };
+            } catch (error) {
+                console.error("Lỗi kiểm tra trạng thái hoàn thành bài kiểm tra:", error);
+                return { hasCompleted: false }; // Mặc định cho phép làm nếu không kiểm tra được
+            }
+        }
+        
+        // Biến lưu trữ interval của timer
+        let timerInterval = null;
+        let remainingTime = 0;
+        
+        /**
+         * Khởi tạo bộ đếm thời gian
+         * @param {number} minutesLimit - Thời gian giới hạn (phút)
+         */
+        function initializeTimer(minutesLimit) {
+            const timerDisplay = document.getElementById('timer-display');
+            if (!timerDisplay) return;
+            
+            // Giá trị minutesLimit đã là số phút từ server
+            remainingTime = minutesLimit * 60; // Chuyển phút thành giây
+            
+            console.log(`DEBUG: Thiết lập thời gian làm bài - Nhận ${minutesLimit} phút từ server = ${remainingTime} giây`);
+            
+            // Hiển thị timer ban đầu
+            updateTimerDisplay();
+            
+            // Thiết lập interval để cập nhật timer mỗi giây
+            timerInterval = setInterval(function() {
+                remainingTime--;
+                
+                // Cập nhật hiển thị
+                updateTimerDisplay();
+                
+                // Kiểm tra hết thời gian
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval);
+                    autoSubmitQuiz();
+                }
+                
+                // Thêm class cảnh báo khi còn ít thời gian
+                if (remainingTime <= 300) { // 5 phút
+                    timerDisplay.classList.add('timer-warning');
+                }
+            }, 1000);
+        }
+        
+        /**
+         * Dừng đồng hồ đếm thời gian
+         */
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                console.log('Đã dừng đồng hồ đếm thời gian');
+                
+                // Hiển thị thông báo đã dừng đồng hồ
+                const timerDisplay = document.getElementById('timer-display');
+                const timerContainer = document.getElementById('timer-container');
+                
+                if (timerDisplay) {
+                    timerDisplay.classList.add('timer-stopped');
+                }
+                
+                if (timerContainer) {
+                    timerContainer.classList.add('submitted');
+                    timerContainer.innerHTML = `
+                        <i class="fas fa-check-circle timer-icon" style="color: #2ecc71;"></i>
+                        <span class="timer-display timer-stopped">Đã nộp bài</span>
+                    `;
+                }
+            }
+        }
+        
+        // Đặt stopTimer vào window để module quiz.js có thể gọi
+        window.stopTimer = stopTimer;
+        
+        /**
+         * Cập nhật hiển thị thời gian còn lại
+         */
+        function updateTimerDisplay() {
+            const timerDisplay = document.getElementById('timer-display');
+            if (!timerDisplay) return;
+            
+            const hours = Math.floor(remainingTime / 3600);
+            const minutes = Math.floor((remainingTime % 3600) / 60);
+            const seconds = remainingTime % 60;
+            
+            // Format thời gian hiển thị
+            timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        /**
+         * Tự động nộp bài khi hết thời gian
+         */
+        function autoSubmitQuiz() {
+            // Hiển thị thông báo
+            alert('Đã hết thời gian làm bài! Hệ thống sẽ tự động nộp bài của bạn.');
+            
+            // Tìm và kích hoạt nút nộp bài
+            const submitBtn = document.getElementById('submitQuiz');
+            if (submitBtn) {
+                submitBtn.click();
+            } else {
+                alert('Không thể tự động nộp bài. Vui lòng làm mới trang và thử lại.');
+            }
+        }
+    </script>
+</body>
+</html> 

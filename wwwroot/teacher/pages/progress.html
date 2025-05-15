@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiến độ học tập | GIÁO VIÊN | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/teacher.css">
+    <link rel="stylesheet" href="../css/progress.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>GIÁO VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="logout-btn" id="logoutBtn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Teacher Avatar">
+                <h3 id="teacherName">Teacher</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li><a href="lectures.html"><i class="fas fa-book"></i> Quản lý bài giảng</a></li>
+                    <li><a href="student-evaluation.html"><i class="fas fa-user-graduate"></i> Đánh giá sinh viên</a></li>
+                    <li class="active"><a href="progress.html"><i class="fas fa-chart-line"></i> Tiến độ học tập</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Theo dõi tiến độ học tập</h2>
+                <p>Xem và cập nhật tiến độ học tập của sinh viên theo môn học và khóa học</p>
+            </div>
+            
+            <!-- Filters for subject and course selection -->
+            <div class="progress-filters">
+                <select id="subjectFilter" class="filter-select">
+                    <option value="">-- Chọn môn học --</option>
+                    <!-- Filled by JavaScript -->
+                </select>
+                
+                <select id="courseFilter" class="filter-select" disabled>
+                    <option value="">-- Chọn khóa học --</option>
+                    <!-- Filled by JavaScript after subject is selected -->
+                </select>
+            </div>
+            
+            <div class="progress-content-wrapper">
+                <!-- Default view: Course list -->
+                <div id="courseListContainer" class="content-section">
+                    <h3>Danh sách khóa học</h3>
+                    <p>Vui lòng chọn một môn học và khóa học từ dropdown ở trên</p>
+                </div>
+                
+                <!-- Student list view (hidden by default) -->
+                <div id="studentListContainer" class="content-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 id="selectedCourseTitle">Danh sách sinh viên</h3>
+                        <button id="backToCourses" class="back-btn"><i class="fas fa-arrow-left"></i> Quay lại</button>
+                    </div>
+                    
+                    <div class="student-search">
+                        <input type="text" id="studentSearch" placeholder="Tìm kiếm sinh viên...">
+                    </div>
+                    
+                    <div class="students-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã SV</th>
+                                    <th>Họ và tên</th>
+                                    <th>Tiến độ tổng thể</th>
+                                    <th>Tham gia buổi học</th>
+                                    <th>Hoàn thành bài giảng</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentListBody">
+                                <!-- Students will be dynamically added here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Student progress details view (hidden by default) -->
+                <div id="studentProgressContainer" class="content-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 id="selectedStudentTitle">Tiến độ học tập của sinh viên</h3>
+                        <button id="backToStudents" class="back-btn"><i class="fas fa-arrow-left"></i> Quay lại</button>
+                    </div>
+                    
+                    <div class="student-progress-overview">
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>Tổng quan tiến độ</h3>
+                                <div class="progress-meta">
+                                    Khóa học: <span id="progressCourseName"></span>
+                                </div>
+                            </div>
+                            <div class="progress-body">
+                                <div class="progress-stats">
+                                    <div class="progress-stat-item">
+                                        <div class="stat-label">Tiến độ tổng thể</div>
+                                        <div class="progress-percentage" id="overallProgress">0%</div>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="progress-stat-item">
+                                        <div class="stat-label">Tham gia buổi học</div>
+                                        <div class="progress-percentage" id="attendanceProgress">0%</div>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="progress-stat-item">
+                                        <div class="stat-label">Hoàn thành bài giảng</div>
+                                        <div class="progress-percentage" id="assignmentProgress">0%</div>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-details">
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>Chi tiết tiến độ học tập</h3>
+                            </div>
+                            <div class="progress-body">
+                                <div class="progress-tabs">
+                                    <div class="tab active" data-tab="lessons">Danh sách bài giảng</div>
+                                </div>
+                                
+                                <div class="tab-content active" id="lessonsContent">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Bài giảng</th>
+                                                <th>Thời gian</th>
+                                                <th>Trạng thái</th>
+                                                <th>Tiến độ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="lessonsTableBody">
+                                            <!-- Filled dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-container">
+                    <div class="copyright">
+                        <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                        <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../main/api.js"></script>
+    <script src="../js/modules/common.js"></script>
+    <script src="../js/modules/progress.js"></script>
+</body>
+</html> 

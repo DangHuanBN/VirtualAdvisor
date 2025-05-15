@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa bài giảng | GIÁO VIÊN | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/teacher.css">
+    <link rel="stylesheet" href="../css/lectures.css">
+    <link rel="stylesheet" href="../css/edit-lecture.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                </span>
+            </div>
+            <div class="admin-title">
+                <h1>GIÁO VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" id="logoutBtn" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Teacher Avatar">
+                <h3 id="teacherName"></h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li class="active"><a href="lectures.html"><i class="fas fa-book"></i> Quản lý bài giảng</a></li>
+                    <li><a href="student-evaluation.html"><i class="fas fa-user-graduate"></i> Đánh giá sinh viên</a>
+                    </li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Tiến độ học tập</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Chỉnh sửa bài giảng</h2>
+                <a href="lectures.html" class="back-button"><i class="fas fa-arrow-left"></i> Quay lại</a>
+            </div>
+
+            <div class="edit-container">
+                <div class="edit-lecture-info">
+                    <h3>Thông tin bài giảng</h3>
+                    <div class="info-details">
+                        <div id="lectureInfo">
+                            <div class="info-item">
+                                <span class="info-label">Môn học:</span>
+                                <span id="subjectName" class="info-value">Đang tải...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Khóa học:</span>
+                                <span id="courseName" class="info-value">Đang tải...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Ngày tải lên:</span>
+                                <span id="uploadDate" class="info-value">Đang tải...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Trạng thái:</span>
+                                <span id="status" class="info-value">Đang tải...</span>
+                            </div>
+                        </div>
+                        <div id="fileInfo" class="file-info">
+                            <div class="info-item">
+                                <span class="info-label">Tệp đính kèm:</span>
+                                <div id="attachmentInfo" class="attachment-info">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <span>Đang tải...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="edit-lecture-form">
+                    <h3>Chỉnh sửa nội dung</h3>
+                    <form id="editForm">
+                        <input type="hidden" id="lectureId" name="lectureId">
+                        <div class="form-group">
+                            <label for="title">Tiêu đề bài giảng <span class="required">*</span></label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Mô tả bài giảng <span class="required">*</span></label>
+                            <textarea id="content" name="content" rows="5" required maxlength="5000"></textarea>
+                            <div class="character-counter"><span id="contentCharCount">0</span>/5000</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Loại bài giảng <span class="required">*</span></label>
+                            <select id="type" name="type" required>
+                                <option value="">Chọn loại</option>
+                                <option value="baigiang">Bài giảng</option>
+                                <option value="baikiemtra">Bài kiểm tra</option>
+                                <option value="baithi">Bài thi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxHours">Thời gian học tối đa (giờ)</label>
+                            <input type="number" id="maxHours" name="maxHours" min="0.1" step="0.1" placeholder="Nhập số giờ học">
+                        </div>
+                        <input type="hidden" id="attachment" name="attachment">
+                        <div class="form-actions">
+                            <button type="button" id="cancelBtn" class="cancel-btn">Hủy</button>
+                            <button type="submit" class="submit-btn">Cập nhật</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Load API trước -->
+    <script src="../../main/api.js"></script>
+    <script src="../js/modules/lectures.js"></script>
+    <script src="../js/modules/edit-lecture.js"></script>
+    <script>
+        // Xử lý đăng xuất
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            AuthAPI.logout();
+        });
+    </script>
+</body>
+
+</html> 

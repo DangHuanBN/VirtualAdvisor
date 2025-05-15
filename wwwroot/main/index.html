@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AiEducation - Nền tảng học tập thông minh ứng dụng AI tại Việt Nam">
+    <title>AiEducation - Nền tảng học tập thông minh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Biến màu - giữ nguyên tone màu đỏ và xanh dương */
+        :root {
+            --ai-red: #E53935;
+            --edu-blue: #2a52be;
+            --white: #fff;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --dark-gray: #666;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Reset và base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Hero section cải tiến */
+        .hero {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--ai-red);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .primary-btn {
+            background-color: var(--ai-red);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .primary-btn:hover {
+            background-color: #c62828;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+        }
+        
+        .primary-btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .primary-btn:hover:after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            color: var(--edu-blue);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--edu-blue);
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .secondary-btn:hover {
+            background-color: var(--edu-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+        
+        .secondary-btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(33, 150, 243, 0.3);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .secondary-btn:hover:after {
+            animation: ripple 1s ease-out;
+        }
+        
+        .hero-image {
+            max-width: 80%;
+            height: auto;
+            margin-top: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-image:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* Header styling */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .ai-red {
+            color: var(--ai-red);
+        }
+        
+        .edu-green {
+            color: var(--edu-blue);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--ai-red);
+            left: 0;
+            bottom: 0;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--ai-red);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .auth-buttons .signup-btn {
+            background-color: var(--edu-blue);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .auth-buttons .signup-btn:hover {
+            background-color: #1976D2;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .auth-buttons .primary-btn {
+            padding: 0.5rem 1.5rem;
+        }
+        
+        /* Features section */
+        .features {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--ai-red);
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, var(--ai-red), var(--edu-blue));
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-size: 2rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .feature-card p {
+            color: var(--dark-gray);
+        }
+        
+        /* Courses section */
+        .courses {
+            padding: 5rem 0;
+            background-color: var(--light-gray);
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .course-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            padding: 2rem;
+            height: 100%;
+            border-left: 4px solid var(--ai-red);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .course-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .course-info {
+            padding: 0.5rem;
+        }
+        
+        .course-category {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background-color: rgba(42, 82, 190, 0.1);
+            color: var(--edu-blue);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .course-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--dark-gray);
+            font-size: 1rem;
+        }
+        
+        /* Testimonials section */
+        .testimonials {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+        
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .testimonial-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-card {
+            flex: 0 0 calc(100% - 2rem);
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            scroll-snap-align: center;
+            transition: var(--transition);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid var(--edu-blue);
+        }
+        
+        .author-info h4 {
+            color: var(--text-color);
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* CTA section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--ai-red), var(--edu-blue));
+            padding: 5rem 0;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-section .primary-btn {
+            background-color: var(--white);
+            color: var(--ai-red);
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+        }
+        
+        .cta-section .primary-btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2f3640;
+            color: #f5f5f5;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-about {
+            order: 1;
+        }
+        
+        .footer-links {
+            order: 2;
+            text-align: center;
+        }
+        
+        .footer-contact {
+            order: 3;
+        }
+        
+        .footer-about p {
+            margin: 1rem 0;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+            margin-right: 12px;
+        }
+        
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 38px;
+            height: 38px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--ai-red);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3:after, .footer-contact h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--edu-blue);
+        }
+        
+        .footer-contact h3:after {
+            left: 0;
+        }
+        
+        .footer-links h3:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+            text-align: center;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.7rem;
+        }
+        
+        .footer-links ul li a {
+            color: #f5f5f5;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 2px 0;
+            display: inline-block;
+        }
+        
+        .footer-links ul li a:hover {
+            opacity: 1;
+            color: var(--edu-blue);
+            padding-left: 0;
+            transform: translateY(-3px);
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        .footer-contact p i {
+            margin-right: 12px;
+            color: var(--ai-red);
+            margin-top: 4px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.2rem 0;
+            margin-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .copyright p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                margin: 1rem 0;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .auth-buttons {
+                margin-top: 1rem;
+            }
+            
+            .primary-btn, .secondary-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .features-grid, .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                </span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="khoahoc.html">Khóa học</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="introduce.html">Về chúng tôi</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="register.html" class="primary-btn">Đăng ký</a>
+                <a href="login.html" class="signup-btn">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <h1>Học tập thông minh cùng AI</h1>
+            <p>Nền tảng giáo dục ứng dụng trí tuệ nhân tạo giúp bạn học tập hiệu quả, cá nhân hóa lộ trình và đạt được mục tiêu nhanh chóng.</p>
+            <div class="cta-buttons">
+                <a href="#" class="primary-btn">Bắt đầu học ngay</a>
+                <a href="login.html" class="secondary-btn">Tìm hiểu thêm</a>
+            </div>
+            <img src="https://img.freepik.com/free-vector/artificial-intelligence-concept-landing-page_52683-24741.jpg" alt="Học tập với AI" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Tại sao chọn AiEducation?</h2>
+            <p>Chúng tôi mang đến giải pháp học tập thông minh với những tính năng ưu việt</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Hỗ trợ AI 24/7</h3>
+                <p>Trợ lý ảo thông minh luôn sẵn sàng giải đáp mọi thắc mắc của bạn mọi lúc, mọi nơi.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Học có lộ trình</h3>
+                <p>Hệ thống xây dựng lộ trình học tập cho từng khóa học.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Giảng viên chất lượng</h3>
+                <p>Đội ngũ giảng viên giàu kinh nghiệm, chuyên môn cao từ các trường đại học hàng đầu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="section-title">
+            <h2>Khóa học nổi bật</h2>
+            <p>Khám phá các khóa học chất lượng được thiết kế bởi chuyên gia</p>
+        </div>
+        <div id="courses-container" class="courses-grid">
+            <!-- Dữ liệu khóa học sẽ được thêm vào đây từ API -->
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="cta-container">
+            <h2>Sẵn sàng bắt đầu hành trình học tập của bạn?</h2>
+            <p>Đăng ký ngay để trải nghiệm nền tảng học tập thông minh với AI hoàn toàn miễn phí</p>
+            <a href="register.html" class="primary-btn">Đăng ký miễn phí</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="" alt="">
+                    <span>AiEducation</span>
+                </div>
+                <p>Nền tảng giáo dục ứng dụng trí tuệ nhân tạo hàng đầu Việt Nam, giúp người học tiếp cận tri thức một cách thông minh và hiệu quả.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Liên kết</h3>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Khóa học</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Về chúng tôi</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Liên hệ</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Trường Cao Đẳng Công Nghệ Cao, Phố Nhuệ Giang, Phường Tây Mỗ, Nam Từ Liêm, Tp.Hà Nội.</p>
+                <p><i class="fas fa-phone-alt"></i> 0919.268.246</p>
+                <p><i class="fas fa-envelope"></i> chungkt@hht.edu.vn</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+            <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Hiệu ứng mượt cho menu
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if(href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Hiệu ứng cho các thẻ khi scroll
+        window.addEventListener('DOMContentLoaded', function() {
+            // Thêm hiệu ứng cho feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            const courseCards = document.querySelectorAll('.course-card');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            
+            function animateOnScroll(elements, delay = 100) {
+                elements.forEach((element, index) => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = `opacity 0.5s ease, transform 0.5s ease`;
+                    element.style.transitionDelay = `${index * delay}ms`;
+                    
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, 500 + index * delay);
+                });
+            }
+            
+            // Kích hoạt animation
+            setTimeout(() => {
+                animateOnScroll(featureCards);
+                animateOnScroll(courseCards);
+                animateOnScroll(testimonialCards);
+            }, 500);
+            
+            // Fetch dữ liệu khóa học
+            console.log('Đang tải dữ liệu khóa học...');
+            setTimeout(fetchTopCourses, 100); // Thêm một chút delay để đảm bảo DOM đã sẵn sàng
+        });
+        
+        // Hàm lấy dữ liệu khóa học từ API
+        async function fetchTopCourses() {
+            try {
+                // Hiển thị dữ liệu mẫu ngay lập tức để đảm bảo có nội dung hiển thị
+                displayFallbackCourses();
+                
+                // Gọi API để lấy tất cả khóa học
+                const response = await fetch('/api/Courses');
+                if (!response.ok) {
+                    throw new Error('Không thể lấy dữ liệu khóa học');
+                }
+                
+                const data = await response.json();
+                console.log('API response:', data); // Ghi log để debug
+                
+                if (data.success && Array.isArray(data.data)) {
+                    // Sắp xếp theo số lượng sinh viên giảm dần
+                    // Xử lý dữ liệu theo cấu trúc thực tế từ API
+                    const courses = data.data.map(course => ({
+                        courseName: course.name,
+                        subjectName: course.subjectName,
+                        studentCount: 0, // Không có thông tin về số lượng sinh viên trong API response
+                        lectureCount: course.lecturesCount || 0,
+                    }));
+                    
+                    const sortedCourses = courses.sort((a, b) => b.studentCount - a.studentCount);
+                    
+                    // Chỉ lấy 3 khóa học
+                    const topCourses = sortedCourses.slice(0, 3);
+                    
+                    // Hiển thị các khóa học
+                    displayCourses(topCourses);
+                }
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu khóa học:', error);
+                // Dữ liệu mẫu đã được hiển thị ở đầu hàm
+            }
+        }
+        
+        // Hàm hiển thị khóa học
+        function displayCourses(courses) {
+            const container = document.getElementById('courses-container');
+            if (!container) {
+                console.error('Không tìm thấy container để hiển thị khóa học');
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            courses.forEach(course => {
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                
+                // Đảm bảo các giá trị không undefined
+                const courseName = course.courseName || 'Khóa học mới';
+                const subjectName = course.subjectName || 'Chủ đề';
+                const studentCount = course.studentCount || 0;
+                const lectureCount = course.lectureCount || 0;
+                
+                courseCard.innerHTML = `
+                    <div class="course-info">
+                        <span class="course-category">${subjectName}</span>
+                        <h3 class="course-title">${courseName}</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-user"></i> ${studentCount} sinh viên</span>
+                            <span><i class="fas fa-book"></i> ${lectureCount} bài giảng</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(courseCard);
+            });
+            
+            // Debug thông tin
+            console.log('Đã hiển thị', courses.length, 'khóa học');
+            courses.forEach(course => console.log('- Khóa học:', course.courseName));
+        }
+        
+        // Hiển thị dữ liệu mẫu nếu API không hoạt động
+        function displayFallbackCourses() {
+            console.log('Hiển thị dữ liệu mẫu...');
+            const fallbackCourses = [
+                {
+                    courseName: "Lập trình Web Fullstack",
+                    subjectName: "Web",
+                    studentCount: 300,
+                    lectureCount: 25
+                },
+                {
+                    courseName: "Python cơ bản đến nâng cao",
+                    subjectName: "Lập trình",
+                    studentCount: 250,
+                    lectureCount: 20
+                },
+                {
+                    courseName: "Machine Learning cơ bản",
+                    subjectName: "AI/ML",
+                    studentCount: 180,
+                    lectureCount: 15
+                }
+            ];
+            
+            displayCourses(fallbackCourses);
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat với AI | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/student.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <script src="../js/modules/common.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>SINH VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="../../index.html" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="student-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <!-- Toggle Button for Sidebar -->
+            <div class="sidebar-header">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="student-info">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Student Avatar">
+                <h3>Lê Văn Nam</h3>
+                <p>MSSV: SV001</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html" title="Trang chủ"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="courses.html" title="Khóa học của tôi"><i class="fas fa-book"></i> <span>Khóa học của tôi</span></a></li>
+                    <li><a href="learning-path.html" title="Lộ trình học tập"><i class="fas fa-road"></i> <span>Lộ trình học tập</span></a></li>
+                    <li><a href="results.html" title="Kết quả học tập"><i class="fas fa-chart-bar"></i> <span>Kết quả học tập</span></a></li>
+                    <li><a href="feedback.html" title="Đánh giá bài giảng"><i class="fas fa-comment"></i> <span>Đánh giá bài giảng</span></a></li>
+                    <li class="active"><a href="chatbot.html" title="Chat với AI"><i class="fas fa-robot"></i> <span>Chat với AI</span></a></li>
+                    <li><a href="notifications.html" title="Thông báo"><i class="fas fa-bell"></i> <span>Thông báo</span></a></li>
+                    <li><a href="profile.html" title="Thông tin cá nhân"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Chatbot Content -->
+        <div class="main-content">
+            <div class="chat-container">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="bot-info">
+                        <i class="fas fa-robot"></i>
+                        <div class="bot-details">
+                            <h3>AiEducation Assistant</h3>
+                            <span class="status online">Đang hoạt động</span>
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <button id="historyBtn" title="Xem lịch sử chat">
+                            <i class="fas fa-history"></i>
+                        </button>
+                        <button id="clearChat" title="Xóa cuộc trò chuyện hiện tại">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Bot Welcome Message -->
+                    <div class="message bot">
+                        <div class="message-content">
+                            <p>Xin chào! Tôi là trợ lý AI của AiEducation. Tôi có thể giúp gì cho bạn?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Questions -->
+                <div class="suggested-questions">
+                    <h4>Câu hỏi gợi ý</h4>
+                    <div class="question-chips">
+                        <button class="question-chip">
+                            <i class="fas fa-code"></i>
+                            Machine Learning là gì?
+                        </button>
+                        <button class="question-chip">
+                            <i class="fas fa-list"></i>
+                            Trí tuệ nhân tạo là gì?
+                        </button>
+                        <button class="question-chip">
+                            <i class="fas fa-exchange-alt"></i>
+                            Giới thiệu về máy ảo GENYMOTION?
+                        </button>
+                        <button class="question-chip">
+                            <i class="fas fa-question-circle"></i>
+                            Thư mục res (Resources) là gì?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input">
+                    <div class="input-container">
+                        <textarea id="messageInput" placeholder="Nhập câu hỏi của bạn..." rows="1"></textarea>
+                        <div class="input-actions">
+                            <button id="attachFile" title="Đính kèm file">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button id="sendMessage" title="Gửi">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="typing-indicator" style="display: none;">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Lịch sử chat</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="history-container" id="historyContainer">
+                    <!-- Lịch sử chat sẽ được thêm bằng JavaScript -->
+                    <div class="chat-date-divider">Hôm nay</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="loadMoreHistory">Tải thêm</button>
+                <button id="deleteHistory" class="delete-btn">Xóa tất cả lịch sử</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/student.js"></script>
+    <script src="../js/modules/chatbot.js"></script>
+</body>
+</html> 

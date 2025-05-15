@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huấn luyện dữ liệu AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .back-btn:hover {
+            background-color: #e9ecef;
+            transform: translateX(-3px);
+        }
+        .page-title {
+            font-size: 28px;
+            color: #333;
+            margin: 15px 0 30px 40px;
+            font-weight: bold;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: flex-end;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .filter-group {
+            flex: 1;
+        }
+        .filter-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: #495057;
+        }
+        .form-select, .form-control {
+            border-radius: 8px;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            transition: all 0.3s;
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        }
+        .course-section {
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+        .course-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .course-header {
+            display: flex;
+            align-items: center;
+            background-color: #f1f3f9;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            border-radius: 12px 12px 0 0;
+        }
+        .course-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #343a40;
+            margin: 0;
+        }
+        .course-title i {
+            color: #3b5998;
+            font-size: 22px;
+        }
+        .course-stats {
+            margin-left: auto;
+            color: #6c757d;
+            font-size: 14px;
+            background-color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .lectures-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            padding: 25px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(59, 89, 152, 0.5) rgba(241, 243, 249, 0.7);
+        }
+        
+        .lectures-grid::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .lectures-grid::-webkit-scrollbar-track {
+            background: rgba(241, 243, 249, 0.7);
+            border-radius: 10px;
+        }
+        
+        .lectures-grid::-webkit-scrollbar-thumb {
+            background-color: rgba(59, 89, 152, 0.5);
+            border-radius: 10px;
+            border: 2px solid rgba(241, 243, 249, 0.7);
+        }
+        
+        .lectures-grid::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(59, 89, 152, 0.8);
+        }
+        
+        .lecture-card {
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            overflow: hidden;
+            background-color: white;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            min-width: 240px;
+            width: 240px;
+            flex-shrink: 0;
+        }
+        .lecture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .lecture-card-header {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .lecture-card-header h5 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #343a40;
+        }
+        .lecture-card-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+        .lecture-info {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        .lecture-info div {
+            margin-bottom: 5px;
+        }
+        .lecture-status {
+            text-align: center;
+            margin-top: auto;
+        }
+        .status-trained {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #28a745;
+            font-weight: 600;
+            background-color: rgba(40, 167, 69, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+        .status-trained i {
+            color: #28a745;
+        }
+        .train-btn {
+            display: inline-block;
+            background-color: #3b5998;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            width: 100%;
+        }
+        .train-btn:hover {
+            background-color: #2d4373;
+            transform: translateY(-2px);
+        }
+        .train-btn:disabled {
+            background-color: #a4b0be;
+            color: #f5f6fa;
+            cursor: not-allowed;
+        }
+        .search-container {
+            position: relative;
+        }
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .toggle-button {
+            border: none;
+            background: none;
+            color: #6c757d;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .toggle-button.collapsed {
+            transform: rotate(-90deg);
+        }
+        .no-results {
+            background-color: #f1f3f9;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: #6c757d;
+            margin-top: 20px;
+        }
+        .no-results i {
+            font-size: 48px;
+            color: #adb5bd;
+            margin-bottom: 15px;
+        }
+        .spinner-container {
+            text-align: center;
+            padding: 40px;
+        }
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            color: #3b5998;
+            transition: all 0.3s;
+        }
+        
+        .scroll-button:hover {
+            background-color: #3b5998;
+            color: white;
+        }
+        
+        .scroll-button.left {
+            left: 10px;
+        }
+        
+        .scroll-button.right {
+            right: 10px;
+        }
+        
+        .scroll-button i {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="window.location.href='http://localhost:5261/admin/pages/database.html'" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="page-title">Huấn luyện dữ liệu AI</h1>
+        
+        <div class="filter-row">
+            <div class="filter-group">
+                <label class="filter-label">Lọc theo khóa học:</label>
+                <select class="form-select" id="courseFilter">
+                    <option value="">Tất cả khóa học</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label class="filter-label">Trạng thái huấn luyện:</label>
+                <select class="form-select" id="statusFilter">
+                    <option value="">Tất cả</option>
+                    <option value="dahuanluyen">Đã huấn luyện</option>
+                    <option value="chuahuanluyen">Chưa huấn luyện</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label class="filter-label">Tìm kiếm bài giảng:</label>
+                <div class="search-container">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm bài giảng...">
+                    <button class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="coursesContainer">
+            <!-- Khóa học và bài giảng sẽ được render từ JavaScript -->
+            <div class="spinner-container">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Đang tải...</span>
+                </div>
+                <p class="mt-3">Đang tải dữ liệu...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lưu trữ dữ liệu
+            let allLectures = [];
+            let allCourses = [];
+            
+            // Lấy danh sách khóa học
+            fetch('/api/courses')
+                .then(response => response.json())
+                .then(courses => {
+                    allCourses = courses;
+                    const courseFilter = document.getElementById('courseFilter');
+                    
+                    courses.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.course_id;
+                        option.textContent = course.course_name;
+                        courseFilter.appendChild(option);
+                    });
+                    
+                    // Lấy danh sách bài giảng
+                    fetchLectures();
+                })
+                .catch(error => {
+                    console.error('Error fetching courses:', error);
+                    document.getElementById('coursesContainer').innerHTML = 
+                        '<div class="alert alert-danger">Có lỗi xảy ra khi tải dữ liệu khóa học.</div>';
+                });
+            
+            // Lấy danh sách bài giảng
+            function fetchLectures() {
+                fetch('/api/lectures')
+                    .then(response => response.json())
+                    .then(lectures => {
+                        console.log('Received lectures data:', lectures);
+                        allLectures = lectures;
+                        renderLectures(lectures);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching lectures:', error);
+                        document.getElementById('coursesContainer').innerHTML = 
+                            '<div class="alert alert-danger">Có lỗi xảy ra khi tải dữ liệu bài giảng.</div>';
+                    });
+            }
+            
+            // Hiển thị danh sách bài giảng
+            function renderLectures(lectures) {
+                const container = document.getElementById('coursesContainer');
+                container.innerHTML = '';
+                
+                if (lectures.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h3>Không tìm thấy kết quả</h3>
+                            <p>Không có bài giảng nào phù hợp với tiêu chí tìm kiếm của bạn.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Nhóm bài giảng theo khóa học
+                const groupedLectures = {};
+                lectures.forEach(lecture => {
+                    // Kiểm tra dữ liệu khóa học
+                    if (!lecture.course_id) {
+                        console.warn('Lecture missing course_id:', lecture);
+                        return;
+                    }
+                    
+                    const courseId = lecture.course_id.toString();
+                    
+                    if (!groupedLectures[courseId]) {
+                        groupedLectures[courseId] = {
+                            course_id: courseId,
+                            course_name: lecture.course_name || 'Khóa học không xác định',
+                            lectures: []
+                        };
+                    }
+                    groupedLectures[courseId].lectures.push(lecture);
+                });
+                
+                console.log('Grouped lectures:', groupedLectures);
+                
+                // Sắp xếp các khóa học theo số lượng bài giảng (giảm dần)
+                const sortedCourseIds = Object.keys(groupedLectures).sort((a, b) => 
+                    groupedLectures[b].lectures.length - groupedLectures[a].lectures.length
+                );
+                
+                console.log('Sorted course IDs:', sortedCourseIds);
+                
+                // Tạo các phần tử cho từng khóa học
+                sortedCourseIds.forEach(courseId => {
+                    const courseData = groupedLectures[courseId];
+                    const courseSection = document.createElement('div');
+                    courseSection.className = 'course-section mb-4';
+                    
+                    // Tính số bài giảng đã huấn luyện
+                    const totalLectures = courseData.lectures.length;
+                    const trainedLectures = courseData.lectures.filter(lecture => 
+                        lecture.status === 'dahuanluyen'
+                    ).length;
+                    
+                    // Header khóa học
+                    const courseHeader = document.createElement('div');
+                    courseHeader.className = 'course-header';
+                    courseHeader.innerHTML = `
+                        <h2 class="course-title">
+                            <i class="fas fa-book-open"></i>
+                            ${courseData.course_name}
+                        </h2>
+                        <div class="course-stats">
+                            <i class="fas fa-book me-1"></i> ${totalLectures} bài giảng | 
+                            <i class="fas fa-check-circle ms-2 me-1 text-success"></i> ${trainedLectures} đã huấn luyện
+                        </div>
+                    `;
+                    courseSection.appendChild(courseHeader);
+                    
+                    // Thêm nút cuộn
+                    const leftButton = document.createElement('button');
+                    leftButton.className = 'scroll-button left';
+                    leftButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                    courseSection.appendChild(leftButton);
+                    
+                    const rightButton = document.createElement('button');
+                    rightButton.className = 'scroll-button right';
+                    rightButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                    courseSection.appendChild(rightButton);
+                    
+                    // Grid bài giảng
+                    const lecturesGrid = document.createElement('div');
+                    lecturesGrid.className = 'lectures-grid';
+                    
+                    // Tạo card cho từng bài giảng
+                    courseData.lectures.forEach(lecture => {
+                        const lectureCard = document.createElement('div');
+                        lectureCard.className = 'lecture-card';
+                        lectureCard.setAttribute('data-course-id', lecture.course_id);
+                        
+                        const uploadDate = lecture.upload_date ? new Date(lecture.upload_date).toLocaleDateString('vi-VN') : 'Không xác định';
+                        
+                        const lectureStatus = lecture.status === 'dahuanluyen' 
+                            ? `<div class="status-trained"><i class="fas fa-check-circle"></i> Đã huấn luyện</div>`
+                            : `<button class="train-btn" data-id="${lecture.lecture_id}">Huấn luyện</button>`;
+                        
+                        lectureCard.innerHTML = `
+                            <div class="lecture-card-header">
+                                <h5 title="${lecture.title}">${lecture.title}</h5>
+                            </div>
+                            <div class="lecture-card-body">
+                                <div class="lecture-info">
+                                    <div><i class="fas fa-user me-2"></i>${lecture.teacher_name || 'Không xác định'}</div>
+                                    <div><i class="fas fa-calendar me-2"></i>${uploadDate}</div>
+                                    <div><i class="fas fa-book me-2"></i>${lecture.course_name || 'Khóa học không xác định'}</div>
+                                    <div><i class="fas fa-file-alt me-2"></i>${lecture.type === 'baigiang' ? 'Bài giảng' : 
+                                        lecture.type === 'baikiemtra' ? 'Bài kiểm tra' : 
+                                        lecture.type === 'baithi' ? 'Bài thi' : 'Khác'}</div>
+                                </div>
+                                <div class="lecture-status">
+                                    ${lectureStatus}
+                                </div>
+                            </div>
+                        `;
+                        
+                        lecturesGrid.appendChild(lectureCard);
+                    });
+                    
+                    courseSection.appendChild(lecturesGrid);
+                    container.appendChild(courseSection);
+                });
+                
+                // Thêm event listener cho các nút huấn luyện
+                document.querySelectorAll('.train-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const lectureId = this.getAttribute('data-id');
+                        trainLecture(lectureId, this);
+                    });
+                });
+                
+                // Thêm sự kiện cho nút cuộn
+                document.querySelectorAll('.scroll-button.left').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const lecturesGrid = this.parentElement.querySelector('.lectures-grid');
+                        lecturesGrid.scrollBy({ left: -500, behavior: 'smooth' });
+                    });
+                });
+                
+                document.querySelectorAll('.scroll-button.right').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const lecturesGrid = this.parentElement.querySelector('.lectures-grid');
+                        lecturesGrid.scrollBy({ left: 500, behavior: 'smooth' });
+                    });
+                });
+            }
+            
+            // Huấn luyện bài giảng
+            function trainLecture(lectureId, button) {
+                button.disabled = true;
+                button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...';
+                
+                fetch(`/train/${lectureId}`, {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(`Lỗi: ${data.error}`);
+                        button.disabled = false;
+                        button.textContent = 'Huấn luyện';
+                    } else {
+                        alert('Huấn luyện thành công!');
+                        fetchLectures(); // Làm mới danh sách
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi huấn luyện bài giảng.');
+                    button.disabled = false;
+                    button.textContent = 'Huấn luyện';
+                });
+            }
+            
+            // Xử lý lọc
+            document.getElementById('courseFilter').addEventListener('change', filterLectures);
+            document.getElementById('statusFilter').addEventListener('change', filterLectures);
+            
+            // Cải thiện tìm kiếm với debounce để tránh tìm kiếm quá nhiều lần
+            const searchInput = document.getElementById('searchInput');
+            let debounceTimer;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(filterLectures, 300);
+            });
+            
+            // Thêm sự kiện cho nút tìm kiếm
+            document.querySelector('.search-icon').addEventListener('click', function() {
+                filterLectures();
+            });
+            
+            function filterLectures() {
+                const courseId = document.getElementById('courseFilter').value;
+                const status = document.getElementById('statusFilter').value;
+                const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+                
+                console.log('Filtering with courseId:', courseId, 'status:', status, 'searchText:', searchText);
+                
+                let filteredLectures = [...allLectures];
+                
+                // Lọc theo khóa học
+                if (courseId) {
+                    filteredLectures = filteredLectures.filter(lecture => 
+                        lecture.course_id && lecture.course_id.toString() === courseId.toString()
+                    );
+                }
+                
+                // Lọc theo trạng thái
+                if (status) {
+                    filteredLectures = filteredLectures.filter(lecture => 
+                        lecture.status === status
+                    );
+                }
+                
+                // Lọc theo từ khóa tìm kiếm
+                if (searchText) {
+                    filteredLectures = filteredLectures.filter(lecture => 
+                        (lecture.title && lecture.title.toLowerCase().includes(searchText)) || 
+                        (lecture.teacher_name && lecture.teacher_name.toLowerCase().includes(searchText)) ||
+                        (lecture.course_name && lecture.course_name.toLowerCase().includes(searchText)) ||
+                        (lecture.content && lecture.content.toLowerCase().includes(searchText))
+                    );
+                }
+                
+                console.log('Filtered lectures:', filteredLectures);
+                renderLectures(filteredLectures);
+            }
+        });
+    </script>
+</body>
+</html> 

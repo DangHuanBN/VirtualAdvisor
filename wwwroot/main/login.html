@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo" style="margin-left: 28%;">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <h1>Đăng nhập</h1>
+            <p>Chào mừng bạn quay trở lại! Vui lòng đăng nhập để tiếp tục.</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="username">Tên đăng nhập</label>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Nhập tên đăng nhập của bạn">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Nhập mật khẩu của bạn">
+                    <i class="fas fa-eye toggle-password"></i>
+                </div>
+                <div class="forgot-password">
+                    <a href="forgotpassword.html">Quên mật khẩu?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">Đăng nhập</button>
+
+            <div class="social-login">
+                <!-- <p>Hoặc đăng nhập bằng</p> -->
+                <!-- <div class="social-buttons">
+                    <a href="#" class="social-btn google">
+                        <img src="https://aiducation.vn/wp-content/uploads/2025/08/google-icon.png" alt="Google">
+                        Google
+                    </a>
+                    <a href="#" class="social-btn facebook">
+                        <img src="https://aiducation.vn/wp-content/uploads/2025/08/facebook-icon.png" alt="Facebook">
+                        Facebook
+                    </a>
+                </div> -->
+            </div>
+
+            <div class="register-link">
+                Bạn chưa có tài khoản? <a href="register.html">Đăng ký ngay</a>
+            </div>
+            
+            <div class="message-container" style="display: none;"></div>
+            
+            <!-- Loading indicator for login process -->
+            <div id="redirectInfo" style="display: none; margin-top: 15px; text-align: center;">
+                <div class="spinner" style="display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(0,0,0,.1); border-radius: 50%; border-top-color: #3498db; animation: spin 1s ease-in-out infinite;"></div>
+                <p style="margin-top: 5px; font-size: 14px;">Đang chuyển hướng đến trang <span id="roleTarget">người dùng</span>...</p>
+            </div>
+        </form>
+    </div>
+    <script>
+        // Toggle hiển thị mật khẩu
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    </script>
+    <script src="api.js"></script>
+    <script src="login.js"></script>
+</body>
+</html> 

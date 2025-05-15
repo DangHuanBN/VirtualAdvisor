@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân quyền người dùng | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/permissions.css">
+    <style>
+        .loading-message, .error-message, .no-data {
+            text-align: center;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .loading-message {
+            color: #3498db;
+            background-color: #eef7fe;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            background-color: #feeeed;
+        }
+        
+        .no-data {
+            color: #7f8c8d;
+            background-color: #f5f5f5;
+            font-style: italic;
+        }
+        
+        .fa-spinner {
+            margin-right: 10px;
+            animation: spin 1s infinite linear;
+        }
+        
+        .fa-exclamation-triangle {
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* CSS cho modal chỉnh sửa quyền */
+        .permission-modal {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            z-index: 9999 !important;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out !important;
+            backdrop-filter: blur(3px) !important;
+            overflow: auto !important;
+        }
+        
+        .permission-modal.show {
+            display: block !important;
+            opacity: 1 !important;
+        }
+        
+        .modal-content {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            background-color: #fff !important;
+            border-radius: 12px !important;
+            width: 420px !important;
+            max-width: 90% !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+            overflow: hidden !important;
+            margin: 0 !important;
+            z-index: 10000 !important;
+            animation: none !important;
+        }
+        
+        .permission-modal.show .modal-content {
+            animation: modalAppear 0.3s ease-out forwards !important;
+        }
+        
+        @keyframes modalAppear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -40%) !important;
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) !important;
+            }
+        }
+        
+        .modal-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 18px 20px !important;
+            border-bottom: 1px solid #e9ecef !important;
+            background: linear-gradient(135deg, #3498db, #2980b9) !important;
+        }
+        
+        .modal-title {
+            margin: 0 !important;
+            color: white !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+        
+        .modal-title h3 {
+            margin: 0 !important;
+            font-size: 19px !important;
+            font-weight: 600 !important;
+            position: relative !important;
+            padding-left: 28px !important;
+        }
+        
+        .modal-title h3::before {
+            content: '\f023' !important;
+            font-family: 'Font Awesome 5 Free' !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            font-weight: 900 !important;
+        }
+        
+        .user-name-subtitle {
+            font-size: 14px !important;
+            font-weight: normal !important;
+            color: rgba(255, 255, 255, 0.85) !important;
+            margin-top: 5px !important;
+            padding-left: 28px !important;
+            font-style: italic !important;
+        }
+        
+        #selectedUserName {
+            font-weight: normal !important;
+            margin-left: 5px !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-style: italic !important;
+        }
+        
+        .close-modal {
+            background: none !important;
+            border: none !important;
+            font-size: 24px !important;
+            cursor: pointer !important;
+            color: white !important;
+            opacity: 0.8 !important;
+            transition: opacity 0.2s !important;
+            width: 30px !important;
+            height: 30px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+        }
+        
+        .close-modal:hover {
+            opacity: 1 !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .permission-options {
+            padding: 20px !important;
+            background-color: #f8f9fa !important;
+        }
+        
+        .permission-option {
+            margin-bottom: 15px !important;
+            display: flex !important;
+            align-items: center !important;
+            background-color: white !important;
+            border-radius: 8px !important;
+            padding: 12px 15px !important;
+            transition: all 0.2s !important;
+            border: 1px solid #e9ecef !important;
+            cursor: pointer !important;
+        }
+        
+        .permission-option:hover {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        .permission-option:last-child {
+            margin-bottom: 0 !important;
+        }
+        
+        .permission-option input[type="radio"] {
+            margin-right: 12px !important;
+            width: 18px !important;
+            height: 18px !important;
+            accent-color: #3498db !important;
+            cursor: pointer !important;
+        }
+        
+        .permission-option label {
+            font-size: 15px !important;
+            color: #495057 !important;
+            cursor: pointer !important;
+            flex: 1 !important;
+            font-weight: 500 !important;
+        }
+        
+        .modal-actions {
+            padding: 15px 20px !important;
+            display: flex !important;
+            justify-content: flex-end !important;
+            border-top: 1px solid #e9ecef !important;
+            background-color: white !important;
+        }
+        
+        .cancel-btn, .save-permissions-btn {
+            padding: 10px 18px !important;
+            border-radius: 30px !important;
+            border: none !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        .cancel-btn {
+            background-color: #f1f3f5 !important;
+            color: #495057 !important;
+            margin-right: 10px !important;
+        }
+        
+        .save-permissions-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9) !important;
+            color: white !important;
+            min-width: 120px !important;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #e9ecef !important;
+        }
+        
+        .save-permissions-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #1c638e) !important;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .save-permissions-btn:active {
+            transform: translateY(1px) !important;
+        }
+        
+        .permission-option.role-admin {
+            border-left: 4px solid #ffc107 !important;
+        }
+        
+        .permission-option.role-teacher {
+            border-left: 4px solid #17a2b8 !important;
+        }
+        
+        .permission-option.role-student {
+            border-left: 4px solid #28a745 !important;
+        }
+        
+        .permission-option.role-external {
+            border-left: 4px solid #6c757d !important;
+        }
+
+        /* CSS cho bảng hiển thị người dùng */
+        .permissions-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .user-list-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .user-list-table thead th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #dee2e6;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .user-list-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+        }
+
+        .user-list-table tbody tr:hover {
+            background-color: #f1f8ff;
+        }
+
+        .user-list-table td {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 2px solid #e9ecef;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 3px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .role-admin {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .role-teacher {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .role-student {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .role-external {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .edit-permissions-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .edit-permissions-btn:hover {
+            background-color: #0069d9;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ced4da;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        /* CSS cho trường hợp không có dữ liệu */
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        /* CSS cho thông báo đang tải và lỗi */
+        .loading-message, .error-message {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-message {
+            background-color: #e3f2fd;
+            color: #0d6efd;
+            border: 1px solid #b6d4fe;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #dc3545;
+            border: 1px solid #f5c2c7;
+        }
+
+        .fa-spinner, .fa-exclamation-triangle {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        /* CSS cho tiêu đề trang */
+        .page-title {
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .page-title h2 {
+            color: #343a40;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* CSS cho thông báo Toast */
+        .toast-notification {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            transition: bottom 0.5s ease;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        .toast-notification.show {
+            bottom: 20px;
+            opacity: 1;
+        }
+
+        .toast-icon {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Ẩn thanh cuộn khi modal hiển thị */
+        body.modal-open {
+            overflow: hidden !important;
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Hiệu ứng loading cho nút lưu */
+        .save-permissions-btn.loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+
+        .save-permissions-btn.loading::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s infinite linear;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Hiệu ứng hover cho hàng trong bảng */
+        .user-list-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .user-list-table tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        /* CSS cho trang đẹp hơn */
+        .admin-content {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hiệu ứng chuyển động mượt mà */
+        .edit-permissions-btn, .role-badge, .user-avatar, .search-box input {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .edit-permissions-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .user-list-table thead {
+                display: none;
+            }
+            
+            .user-list-table, .user-list-table tbody, .user-list-table tr, .user-list-table td {
+                display: block;
+                width: 100%;
+            }
+            
+            .user-list-table tr {
+                margin-bottom: 15px;
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            
+            .user-list-table td {
+                text-align: right;
+                position: relative;
+                padding-left: 120px;
+            }
+            
+            .user-list-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: 100px;
+                font-weight: bold;
+                text-align: left;
+            }
+            
+            .user-info {
+                justify-content: flex-end;
+            }
+        }
+
+        /* Thêm media query để xử lý trên màn hình nhỏ */
+        @media (max-height: 600px) {
+            .modal-content {
+                top: 0 !important;
+                transform: translate(-50%, 0) !important;
+                margin: 20px 0 !important;
+                max-height: calc(100vh - 40px) !important;
+                overflow-y: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>QUẢN TRỊ VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" id="logout-btn" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Admin Avatar">
+                <h3 id="admin-name">Admin Name</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li><a href="courses.html"><i class="fas fa-book"></i> Quản lý học tập</a></li>
+                    <li><a href="database.html"><i class="fas fa-database"></i> Quản lý kho dữ liệu</a></li>
+                    <li><a href="users.html"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                    <li class="active"><a href="permissions.html"><i class="fas fa-user-shield"></i> Phân quyền người dùng</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Phân quyền người dùng</h2>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="userSearch" placeholder="Tìm kiếm theo tên hoặc email...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <!-- User List Table -->
+            <div class="permissions-container">
+                <table class="user-list-table">
+                    <thead>
+                        <tr>
+                            <th>Người dùng</th>
+                            <th>Vai trò</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Dữ liệu người dùng sẽ được thêm vào đây bằng JavaScript -->
+                    </tbody>
+                </table>
+                <div id="loadingMessage" class="loading-message">
+                    <i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...
+                </div>
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i> Không thể tải dữ liệu người dùng. Vui lòng thử lại sau.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Permission Modal -->
+    <div id="permissionModal" class="permission-modal" data-user-id="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <h3>Chỉnh sửa quyền</h3>
+                    <div id="selectedUserName" class="user-name-subtitle"></div>
+                </div>
+                <button class="close-modal" onclick="closePermissionModal()">&times;</button>
+            </div>
+            <div class="permission-options">
+                <div class="permission-option role-admin" onclick="selectRole('roleQTV')">
+                    <input type="radio" id="roleQTV" name="userRole" value="QTV">
+                    <label for="roleQTV">Quản trị viên (QTV)</label>
+                </div>
+                <div class="permission-option role-teacher" onclick="selectRole('roleTeacher')">
+                    <input type="radio" id="roleTeacher" name="userRole" value="teacher">
+                    <label for="roleTeacher">Giảng viên</label>
+                </div>
+                <div class="permission-option role-student" onclick="selectRole('roleStudent')">
+                    <input type="radio" id="roleStudent" name="userRole" value="student">
+                    <label for="roleStudent">Sinh viên</label>
+                </div>
+                <div class="permission-option role-external" onclick="selectRole('roleExternal')">
+                    <input type="radio" id="roleExternal" name="userRole" value="external">
+                    <label for="roleExternal">Đối tượng ngoài</label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closePermissionModal()">Hủy</button>
+                <button class="save-permissions-btn" onclick="savePermissions()">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-notification">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-message">Đã cập nhật quyền thành công!</div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/modules/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="/main/api.js"></script>
+    
+    <script>
+        // Khởi tạo các module
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị tên người dùng
+            const adminNameElement = document.getElementById('admin-name');
+            const userData = localStorage.getItem('userInfo') || localStorage.getItem('user');
+            
+            if (userData && adminNameElement) {
+                const user = JSON.parse(userData);
+                adminNameElement.textContent = user.fullName || 'Admin';
+            }
+            
+            // Xử lý sự kiện đăng xuất
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Xóa dữ liệu người dùng
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userInfo');
+                    localStorage.removeItem('user');
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('userInfo');
+                    // Chuyển hướng về trang đăng nhập
+                    window.location.href = '/main/login.html';
+                });
+            }
+            
+            loadUsers();
+            setupSearchFilter();
+        });
+
+        // Cài đặt bộ lọc tìm kiếm
+        function setupSearchFilter() {
+            const searchInput = document.getElementById('userSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce(filterUsers, 300));
+            }
+        }
+
+        // Hàm debounce để giảm số lần gọi hàm filterUsers
+        function debounce(func, delay) {
+            let timeout;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), delay);
+            };
+        }
+
+        // Lọc người dùng dựa trên từ khóa tìm kiếm
+        function filterUsers() {
+            const searchText = document.getElementById('userSearch').value.toLowerCase();
+            const userRows = document.querySelectorAll('.user-list-table tbody tr');
+            
+            let hasVisibleRows = false;
+            
+            userRows.forEach(row => {
+                if (row.classList.contains('no-data')) return;
+                
+                const userName = row.querySelector('.user-name').textContent.toLowerCase();
+                const userEmail = row.querySelector('.user-email').textContent.toLowerCase();
+                
+                if (userName.includes(searchText) || userEmail.includes(searchText)) {
+                    row.style.display = '';
+                    hasVisibleRows = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Hiển thị thông báo nếu không có kết quả nào
+            const noResultsRow = document.getElementById('noResultsRow');
+            if (!hasVisibleRows) {
+                if (!noResultsRow) {
+                    const tbody = document.getElementById('userTableBody');
+                    const newRow = document.createElement('tr');
+                    newRow.id = 'noResultsRow';
+                    newRow.className = 'no-data';
+                    newRow.innerHTML = `<td colspan="3">Không tìm thấy người dùng phù hợp với từ khóa "${searchText}"</td>`;
+                    tbody.appendChild(newRow);
+                } else {
+                    noResultsRow.style.display = '';
+                    noResultsRow.querySelector('td').textContent = `Không tìm thấy người dùng phù hợp với từ khóa "${searchText}"`;
+                }
+            } else if (noResultsRow) {
+                noResultsRow.style.display = 'none';
+            }
+        }
+
+        // Tải danh sách người dùng từ API
+        function loadUsers() {
+            const tableBody = document.getElementById('userTableBody');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hiển thị thông báo đang tải
+            loadingMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            tableBody.innerHTML = '';
+            
+            // Gọi API lấy danh sách người dùng
+            fetch('/api/User')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Không thể lấy dữ liệu người dùng');
+                    }
+                    return response.json();
+                })
+                .then(users => {
+                    // Ẩn thông báo đang tải
+                    loadingMessage.style.display = 'none';
+                    
+                    if (users.length === 0) {
+                        tableBody.innerHTML = `<tr class="no-data"><td colspan="3">Không có dữ liệu người dùng</td></tr>`;
+                        return;
+                    }
+                    
+                    // Hiển thị danh sách người dùng
+                    users.forEach(user => {
+                        // Tạo HTML cho mỗi người dùng
+                        const userRow = createUserRow(user);
+                        tableBody.innerHTML += userRow;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    loadingMessage.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                    errorMessage.querySelector('i').className = 'fas fa-exclamation-triangle';
+                    errorMessage.querySelector('span').textContent = 'Không thể tải dữ liệu người dùng. Vui lòng thử lại sau.';
+                });
+        }
+
+        // Tạo HTML cho mỗi dòng người dùng
+        function createUserRow(user) {
+            // Xác định văn bản và class cho vai trò
+            let roleText = '';
+            let roleClass = '';
+            
+            switch(user.role) {
+                case 0: // Admin
+                    roleText = 'Quản trị viên';
+                    roleClass = 'role-admin';
+                    break;
+                case 1: // Teacher
+                    roleText = 'Giảng viên';
+                    roleClass = 'role-teacher';
+                    break;
+                case 2: // Student
+                    roleText = 'Sinh viên';
+                    roleClass = 'role-student';
+                    break;
+                default: // Other
+                    roleText = 'Đối tượng ngoài';
+                    roleClass = 'role-external';
+                    break;
+            }
+            
+            // Tạo avatar mặc định nếu không có
+            const avatarUrl = user.avatarUrl || 'https://randomuser.me/api/portraits/lego/0.jpg';
+            
+            // Tạo mã HTML với các thuộc tính data-label cho responsive
+            return `
+                <tr data-user-id="${user.userId}">
+                    <td data-label="Người dùng">
+                        <div class="user-info">
+                            <img src="${avatarUrl}" alt="User Avatar" class="user-avatar">
+                            <div class="user-details">
+                                <span class="user-name">${user.fullName}</span>
+                                <span class="user-email">${user.email || 'Không có email'}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-label="Vai trò"><span class="role-badge ${roleClass}">${roleText}</span></td>
+                    <td data-label="Thao tác">
+                        <div class="permission-actions">
+                            <button class="edit-permissions-btn" onclick="openPermissionModal(${user.userId})">
+                                <i class="fas fa-edit"></i> Sửa quyền
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Chọn role khi click vào option
+        function selectRole(roleId) {
+            document.getElementById(roleId).checked = true;
+        }
+
+        // Mở modal phân quyền
+        function openPermissionModal(userId) {
+            const modal = document.getElementById('permissionModal');
+            
+            // Đặt lại vị trí nếu có thay đổi kích thước
+            adjustModalPosition();
+            
+            modal.classList.add('show');
+            document.body.classList.add('modal-open');
+            
+            // Lấy vai trò hiện tại của người dùng
+            const userRow = document.querySelector(`tr[data-user-id="${userId}"]`);
+            if (!userRow) return;
+            
+            const currentRole = userRow.querySelector('.role-badge').textContent.trim();
+            const userName = userRow.querySelector('.user-name').textContent.trim();
+            
+            // Hiển thị tên người dùng trong tiêu đề modal
+            document.getElementById('selectedUserName').textContent = userName;
+            
+            // Đặt radio button tương ứng với vai trò hiện tại
+            const roleMap = {
+                'Admin': 'roleQTV',
+                'Giảng viên': 'roleTeacher',
+                'Sinh viên': 'roleStudent',
+                'Đối tượng ngoài': 'roleExternal'
+            };
+            
+            const roleId = roleMap[currentRole] || 'roleExternal';
+            document.getElementById(roleId).checked = true;
+            
+            // Lưu userId vào modal để sử dụng khi lưu
+            modal.setAttribute('data-user-id', userId);
+        }
+
+        // Đóng modal phân quyền
+        function closePermissionModal() {
+            document.getElementById('permissionModal').classList.remove('show');
+            document.body.classList.remove('modal-open');
+        }
+        
+        // Điều chỉnh vị trí modal
+        function adjustModalPosition() {
+            const modal = document.getElementById('permissionModal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            if (window.innerHeight < 600) {
+                modalContent.style.top = '0';
+                modalContent.style.transform = 'translate(-50%, 0)';
+                modalContent.style.margin = '20px 0';
+                modalContent.style.maxHeight = 'calc(100vh - 40px)';
+                modalContent.style.overflowY = 'auto';
+            } else {
+                modalContent.style.top = '50%';
+                modalContent.style.transform = 'translate(-50%, -50%)';
+                modalContent.style.margin = '0';
+                modalContent.style.maxHeight = '';
+                modalContent.style.overflowY = '';
+            }
+        }
+        
+        // Thêm sự kiện resize để điều chỉnh vị trí modal
+        window.addEventListener('resize', function() {
+            const modal = document.getElementById('permissionModal');
+            if (modal.classList.contains('show')) {
+                adjustModalPosition();
+            }
+        });
+        
+        // Thêm sự kiện click cho modal để đóng khi click bên ngoài
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('permissionModal');
+            if (modal.classList.contains('show') && event.target === modal) {
+                closePermissionModal();
+            }
+        });
+        
+        // Khởi tạo sự kiện resize một lần để thiết lập kích thước ban đầu
+        window.dispatchEvent(new Event('resize'));
+
+        // Hiển thị thông báo toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toastNotification');
+            const icon = toast.querySelector('.toast-icon i');
+            const messageElement = toast.querySelector('.toast-message');
+            
+            // Thiết lập loại toast
+            toast.className = 'toast-notification';
+            if (type === 'success') {
+                toast.style.backgroundColor = '#28a745';
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                toast.style.backgroundColor = '#dc3545';
+                icon.className = 'fas fa-times-circle';
+            } else if (type === 'warning') {
+                toast.style.backgroundColor = '#ffc107';
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            // Cập nhật nội dung
+            messageElement.textContent = message;
+            
+            // Hiển thị toast
+            toast.classList.add('show');
+            
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Lưu thay đổi quyền
+        function savePermissions() {
+            // Lấy vai trò đã chọn
+            const selectedRoleRadio = document.querySelector('input[name="userRole"]:checked');
+            if (!selectedRoleRadio) {
+                showToast('Vui lòng chọn một vai trò!', 'warning');
+                return;
+            }
+            const selectedRole = selectedRoleRadio.value;
+            
+            // Lấy userId từ modal
+            const userId = document.getElementById('permissionModal').getAttribute('data-user-id');
+            if (!userId) {
+                showToast('Không tìm thấy thông tin người dùng!', 'error');
+                return;
+            }
+            
+            // Chuyển đổi giá trị role thành định dạng enum
+            const roleEnum = {
+                'QTV': 0, // Admin
+                'teacher': 1, // Teacher
+                'student': 2, // Student
+                'external': 3 // Other
+            };
+            
+            // Tạo payload cho API request
+            const payload = {
+                role: roleEnum[selectedRole]
+            };
+            
+            // Hiển thị trạng thái loading trên nút
+            const saveButton = document.querySelector('.save-permissions-btn');
+            saveButton.classList.add('loading');
+            
+            // Gọi API cập nhật role
+            fetch(`/api/User/${userId}/role`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                saveButton.classList.remove('loading');
+                
+                if (!response.ok) {
+                    throw new Error('Lỗi khi cập nhật quyền');
+                }
+                return response;
+            })
+            .then(() => {
+                // Cập nhật UI sau khi lưu thành công
+                updateUIAfterRoleChange(userId, selectedRole);
+                
+                // Hiển thị thông báo thành công
+                showToast('Đã cập nhật quyền thành công!', 'success');
+                
+                // Đóng modal
+                closePermissionModal();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                saveButton.classList.remove('loading');
+                showToast('Lỗi khi cập nhật quyền: ' + error.message, 'error');
+            });
+        }
+        
+        // Hàm cập nhật UI sau khi thay đổi role
+        function updateUIAfterRoleChange(userId, role) {
+            const userRow = document.querySelector(`tr[data-user-id="${userId}"]`);
+            if (!userRow) return;
+            
+            const roleBadge = userRow.querySelector('.role-badge');
+            if (!roleBadge) return;
+            
+            // Xóa tất cả các class role hiện tại
+            roleBadge.classList.remove('role-admin', 'role-teacher', 'role-student', 'role-external');
+            
+            // Cập nhật text và thêm class mới
+            let roleText = '';
+            let roleClass = '';
+            
+            switch(role) {
+                case 'QTV':
+                    roleText = 'Admin';
+                    roleClass = 'role-admin';
+                    break;
+                case 'teacher':
+                    roleText = 'Giảng viên';
+                    roleClass = 'role-teacher';
+                    break;
+                case 'student':
+                    roleText = 'Sinh viên';
+                    roleClass = 'role-student';
+                    break;
+                case 'external':
+                    roleText = 'Đối tượng ngoài';
+                    roleClass = 'role-external';
+                    break;
+            }
+            
+            roleBadge.textContent = roleText;
+            roleBadge.classList.add(roleClass);
+            
+            // Hiệu ứng highlight cho hàng vừa cập nhật
+            userRow.style.backgroundColor = '#e3f2fd';
+            setTimeout(() => {
+                userRow.style.backgroundColor = '';
+                userRow.style.transition = 'background-color 1s ease';
+            }, 100);
+        }
+    </script>
+
+    <script src="../js/modules/permissions.js"></script>
+</body>
+</html>

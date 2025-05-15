@@ -1,0 +1,250 @@
+/* Permissions Page Styles */
+.permissions-container {
+    padding: 20px;
+}
+
+/* Search Bar */
+.search-container {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.search-box {
+    position: relative;
+    max-width: 500px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #0984e3;
+    box-shadow: 0 0 0 2px rgba(9, 132, 227, 0.1);
+}
+
+.search-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+/* User List Table */
+.user-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-list-table th,
+.user-list-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.user-list-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+.user-list-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* User Info */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.user-email {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Role Badge */
+.role-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.role-admin {
+    background: #ffe0e0;
+    color: #d63031;
+}
+
+.role-teacher {
+    background: #e0f2ff;
+    color: #0984e3;
+}
+
+.role-student {
+    background: #e0ffe0;
+    color: #00b894;
+}
+
+/* Permission Actions */
+.permission-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-permissions-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #0984e3;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.edit-permissions-btn:hover {
+    background: #0873c4;
+}
+
+/* Permission Modal */
+.permission-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #333;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #666;
+}
+
+.permission-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.permission-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.permission-option:hover {
+    background-color: #f8f9fa;
+}
+
+.permission-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #0984e3;
+}
+
+.permission-option label {
+    font-size: 1em;
+    color: #333;
+    cursor: pointer;
+    flex: 1;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.save-permissions-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #00b894;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.save-permissions-btn:hover {
+    background: #00a884;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cancel-btn:hover {
+    background: #f8f9fa;
+    border-color: #ccc;
+} 

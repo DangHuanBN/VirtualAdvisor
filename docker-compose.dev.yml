@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  dotnetapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "5050:5050"
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+
+  flaskapp:
+    build:
+      context: ./AI_Training
+      dockerfile: Dockerfile
+    volumes:
+      - ./AI_Training:/app
+    ports:
+      - "5051:5000"

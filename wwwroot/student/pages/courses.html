@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khóa học của tôi | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/student.css">
+    <link rel="stylesheet" href="../css/courses.css">
+    <link rel="stylesheet" href="../css/course-register.css">
+    <script src="../js/modules/common.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>SINH VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="../../index.html" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="student-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <!-- Toggle Button for Sidebar -->
+            <div class="sidebar-header">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="student-info">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Student Avatar">
+                <h3>Lê Văn Nam</h3>
+                <p>MSSV: SV001</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html" title="Trang chủ"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li class="active"><a href="courses.html" title="Khóa học của tôi"><i class="fas fa-book"></i> <span>Khóa học của tôi</span></a></li>
+                    <li><a href="learning-path.html" title="Lộ trình học tập"><i class="fas fa-road"></i> <span>Lộ trình học tập</span></a></li>
+                    <li><a href="results.html" title="Kết quả học tập"><i class="fas fa-chart-bar"></i> <span>Kết quả học tập</span></a></li>
+                    <li><a href="feedback.html" title="Đánh giá bài giảng"><i class="fas fa-comment"></i> <span>Đánh giá bài giảng</span></a></li>
+                    <li><a href="chatbot.html" title="Chat với AI"><i class="fas fa-robot"></i> <span>Chat với AI</span></a></li>
+                    <li><a href="notifications.html" title="Thông báo"><i class="fas fa-bell"></i> <span>Thông báo</span></a></li>
+                    <li><a href="profile.html" title="Thông tin cá nhân"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Courses Content -->
+        <div class="main-content">
+            <!-- Messages Container -->
+            <div id="messages-container" class="messages-container"></div>
+            
+            <div class="page-header">
+                <h2>Khóa học của tôi</h2>
+            </div>
+
+            <!-- Course Categories Tabs -->
+            <div class="course-tabs">
+                <button class="tab-btn active" data-tab="current">Đang học</button>
+                <button class="tab-btn" data-tab="completed">Đã hoàn thành</button>
+                <button class="tab-btn" data-tab="reserved">Đã bảo lưu</button>
+                <button class="tab-btn register-tab" data-tab="available">
+                    <i class="fas fa-plus-circle"></i> ĐĂNG KÝ KHÓA HỌC
+                </button>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="course-filters">
+                <div class="search-box">
+                    <input type="text" id="courseSearch" placeholder="Tìm kiếm khóa học...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <select id="subjectFilter">
+                    <option value="all">Tất cả môn học</option>
+                    <option value="programming">Lập trình</option>
+                    <option value="math">Toán học</option>
+                    <option value="language">Ngoại ngữ</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="newest">Mới nhất</option>
+                    <option value="oldest">Cũ nhất</option>
+                    <option value="progress">Tiến độ</option>
+                </select>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Current Courses -->
+                <div class="tab-pane active" id="current-courses">
+                    <div class="courses-grid">
+                        <!-- Dữ liệu khóa học sẽ được tải từ API và hiển thị ở đây -->
+                        <div class="loading-courses">Đang tải danh sách khóa học...</div>
+                    </div>
+                </div>
+
+                <!-- Completed Courses -->
+                <div class="tab-pane" id="completed-courses">
+                    <div class="courses-grid">
+                    </div>
+                </div>
+
+                <!-- Reserved Courses -->
+                <div class="tab-pane" id="reserved-courses">
+                    <div class="courses-grid">
+                    </div>
+                </div>
+
+                <!-- Available Courses -->
+                <div class="tab-pane" id="available-courses">
+                    <div class="courses-grid">
+                        <!-- Dữ liệu khóa học khả dụng sẽ được tải động bằng JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Course Modal -->
+    <div class="modal" id="registerCourseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Đăng ký khóa học mới</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="search-box modal-search">
+                    <input type="text" placeholder="Tìm kiếm khóa học...">
+                    <i class="fas fa-search"></i>
+                </div>
+                
+                <div class="available-courses-list">
+                    <div class="course-item">
+                        <div class="course-item-info">
+                            <h4>Cơ sở dữ liệu</h4>
+                            <p>GV. Lê Thị Tâm</p>
+                            <div class="course-item-meta">
+                                <span><i class="fas fa-clock"></i> 5 tuần</span>
+                                <span><i class="fas fa-users"></i> 45 sinh viên</span>
+                            </div>
+                        </div>
+                        <button class="register-course-item">Đăng ký</button>
+                    </div>
+                    
+                    <div class="course-item">
+                        <div class="course-item-info">
+                            <h4>ReactJS cơ bản đến nâng cao</h4>
+                            <p>GV. Nguyễn Văn Giảng</p>
+                            <div class="course-item-meta">
+                                <span><i class="fas fa-clock"></i> 8 tuần</span>
+                                <span><i class="fas fa-users"></i> 30 sinh viên</span>
+                            </div>
+                        </div>
+                        <button class="register-course-item">Đăng ký</button>
+                    </div>
+                    
+                    <div class="course-item">
+                        <div class="course-item-info">
+                            <h4>Machine Learning cơ bản</h4>
+                            <p>GV. Hoàng Minh Tuấn</p>
+                            <div class="course-item-meta">
+                                <span><i class="fas fa-clock"></i> 10 tuần</span>
+                                <span><i class="fas fa-users"></i> 25 sinh viên</span>
+                            </div>
+                        </div>
+                        <button class="register-course-item">Đăng ký</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Course Lectures Modal -->
+    <div class="lecture-modal" id="lectureCourseModal">
+        <div class="lecture-modal-content">
+            <div class="lecture-modal-header">
+                <h2>Danh sách bài học</h2>
+                <button class="lecture-modal-close">&times;</button>
+            </div>
+            <div class="lecture-modal-body">
+                <!-- Thông tin khóa học -->
+                <div class="course-info">
+                    <h3 id="modal-course-name">Tên khóa học</h3>
+                    <p id="modal-course-description">Mô tả khóa học sẽ hiển thị ở đây...</p>
+                    <div class="course-meta-info">
+                        <span><i class="fas fa-book-open"></i> <span id="modal-lecture-count">0</span> bài học</span>
+                        <span><i class="fas fa-clock"></i> <span id="modal-course-duration">0</span> giờ học</span>
+                        <span><i class="fas fa-users"></i> <span id="modal-student-count">0</span> sinh viên</span>
+                        <span><i class="fas fa-graduation-cap"></i> <span id="modal-subject-name">Chưa xác định</span></span>
+                    </div>
+                </div>
+                
+                <!-- Danh sách học liệu -->
+                <div class="lectures-header">
+                    <h3>Nội dung bài học</h3>
+                </div>
+                
+                <div id="lectures-container" class="lectures-list">
+                    <div class="loading-lectures">Đang tải danh sách bài học...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/modules/auth-helper.js"></script>
+    <script src="../js/student.js"></script>
+    <script src="../js/modules/courses.js"></script>
+    <script src="../js/course-register.js"></script>
+</body>
+</html> 

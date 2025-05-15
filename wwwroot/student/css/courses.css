@@ -1,0 +1,1259 @@
+/* Course Page Styles */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Course Actions Button */
+.course-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.register-course-btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.register-course-btn:hover {
+    background: #0873c4;
+}
+
+/* Course Tabs */
+.course-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    color: #3498db;
+}
+
+.tab-btn.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+/* Register Tab Styles - Làm cho tab đăng ký lớn và nổi bật */
+.register-tab {
+    margin-left: auto;
+    background-color: #3498db;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 15px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.register-tab:hover {
+    background-color: #2980b9;
+    color: white;
+}
+
+/* Register Courses Header */
+.register-courses-header {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #fff5f5;
+    border-radius: 8px;
+    border-left: 4px solid var(--danger-color);
+}
+
+.register-courses-header h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--danger-color);
+}
+
+.register-courses-header p {
+    color: #666;
+}
+
+/* Tab Content */
+.tab-content {
+    position: relative;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Search and Filters */
+.course-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.course-filters select {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    min-width: 150px;
+}
+
+/* Course Grid */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Course Card */
+.course-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Square Card Design */
+.square-card {
+    aspect-ratio: 1/1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-color, #3498db);
+    color: white;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.square-card .course-content {
+    padding: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.square-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.square-card .instructor {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+}
+
+.square-card .course-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.square-card .course-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 50px;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px;
+}
+
+.square-card .course-actions-container {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.square-card .continue-btn {
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    flex-grow: 1;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.square-card .continue-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.square-card .dropdown-toggle {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.square-card .dropdown-menu {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    padding: 5px 0;
+    min-width: 150px;
+    z-index: 100;
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    margin-bottom: 5px;
+    display: none;
+}
+
+.square-card .dropdown-menu.show {
+    display: block;
+}
+
+.square-card .dropdown-item {
+    padding: 8px 15px;
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.square-card .dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* Course Status Styles */
+.course-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.course-status.in-progress {
+    background: #e0f2ff;
+    color: var(--primary-color);
+}
+
+.course-status.completed {
+    background: #e0ffe0;
+    color: var(--secondary-color);
+}
+
+.course-status.not-started {
+    background: #f8f9fa;
+    color: #666;
+}
+
+.course-status.reserved {
+    background: #fff4e0;
+    color: #f39c12;
+}
+
+/* Course Action Buttons */
+.course-actions-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.continue-btn,
+.review-btn,
+.start-btn,
+.register-btn {
+    display: inline-block;
+    flex: 1;
+    padding: 0.6rem;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.continue-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.continue-btn:hover {
+    background: #0873c4;
+}
+
+.review-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.review-btn:hover {
+    background: #00a884;
+}
+
+.start-btn {
+    background: #f8f9fa;
+    color: var(--text-color);
+    border: 1px solid var(--light-gray);
+}
+
+.start-btn:hover {
+    background: #e9ecef;
+}
+
+.register-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.register-btn:hover {
+    background: #0873c4;
+}
+
+/* Dropdown Menu for Course Actions */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown-toggle:hover {
+    background: var(--light-gray);
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: auto;
+    bottom: 100%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    min-width: 180px;
+    z-index: 100;
+    display: none;
+    margin-bottom: 5px;
+    border: 1px solid var(--light-gray);
+}
+
+/* Hiển thị menu khi hover hoặc khi có class show */
+.dropdown:hover .dropdown-menu,
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fa;
+}
+
+.dropdown-item.reserve-course {
+    color: #f39c12;
+}
+
+.dropdown-item.cancel-course {
+    color: var(--danger-color);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.2rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-search {
+    margin-bottom: 1.5rem;
+}
+
+/* Available Courses List in Modal */
+.available-courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.course-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--light-gray);
+    transition: box-shadow 0.3s;
+}
+
+.course-item:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-item-info h4 {
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+}
+
+.course-item-info p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.course-item-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.register-course-item {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-course-item:hover {
+    background: #0873c4;
+}
+
+/* Course Extra Actions */
+.course-extra-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+}
+
+.reserve-btn, 
+.cancel-btn {
+    flex: 1;
+    display: inline-block;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.reserve-btn {
+    color: #f39c12;
+    background-color: #fff8e1;
+    border: 1px solid #ffedb8;
+}
+
+.reserve-btn:hover {
+    background-color: #ffecb3;
+}
+
+.cancel-btn {
+    color: var(--danger-color);
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+}
+
+.cancel-btn:hover {
+    background-color: #ffcdd2;
+}
+
+/* Loading State */
+.loading-courses {
+    padding: 30px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+/* Error Message */
+.error-message {
+    padding: 30px;
+    text-align: center;
+    color: #e74c3c;
+    background-color: #fdf3f2;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.error-message i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.retry-btn {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.retry-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Empty State */
+.no-courses {
+    padding: 30px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .course-tabs {
+        overflow-x: scroll;
+        padding-bottom: 1rem;
+    }
+
+    .course-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .course-filters .search-box {
+        width: 100%;
+    }
+
+    .course-filters select {
+        width: 100%;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* Lecture Modal Styles */
+.lecture-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.lecture-modal.active {
+    display: flex;
+}
+
+.lecture-modal-content {
+    background: white;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.lecture-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.lecture-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.lecture-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.lecture-modal-body {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.course-info {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.course-info h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.course-info p {
+    margin: 0 0 5px 0;
+    color: #666;
+}
+
+.course-meta-info {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.course-meta-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.lectures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lectures-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lectures-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.lecture-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.lecture-item:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.lecture-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.lecture-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+.lecture-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.lecture-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #666;
+}
+
+.lecture-description {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.lecture-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.lecture-view-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.lecture-view-btn:hover {
+    background-color: #2980b9;
+}
+
+.no-lectures {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+    background-color: #f9f9fa;
+    border-radius: 8px;
+}
+
+.loading-lectures {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+    background-color: #f9f9fa;
+    border-radius: 8px;
+}
+
+/* Thông tin loại khóa học */
+.course-type-info {
+    background-color: #f8f9fa;
+    border-left: 4px solid #4285f4;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.course-type-info i {
+    color: #4285f4;
+    margin-right: 8px;
+}
+
+.course-type-info strong {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Hiển thị tiến độ bài giảng */
+.lecture-progress {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.progress-bar-container {
+    background-color: #eee;
+    height: 8px;
+    width: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.progress-bar {
+    background-color: #4caf50;
+    height: 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-value {
+    font-size: 12px;
+    color: #555;
+    margin-right: 15px;
+}
+
+.progress-status {
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto;
+}
+
+.progress-status i {
+    margin-right: 4px;
+}
+
+.progress-status.completed {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.progress-status.in-progress {
+    background-color: #fff8e1;
+    color: #ff8f00;
+}
+
+/* Nút bị vô hiệu hóa */
+.lecture-view-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f5f5f5;
+    color: #888;
+    border: 1px solid #ddd;
+}
+
+.lecture-view-btn.disabled:hover {
+    background-color: #f5f5f5;
+    transform: none;
+}
+
+.lecture-view-btn.disabled i.fa-lock {
+    color: #e53935;
+}
+
+/* Thêm styles cho việc hiển thị loại bài học (bài giảng, bài thi, bài kiểm tra) */
+
+/* Styles cho hiển thị loại bài học */
+.lecture-type {
+    display: flex;
+    align-items: center;
+    background-color: #f0f4f8;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin-right: 10px;
+}
+
+.lecture-type i {
+    margin-right: 5px;
+    color: #4a6fa5;
+}
+
+/* Màu sắc khác nhau cho các loại học liệu */
+.lecture-type.baigiang i {
+    color: #3498db; /* Xanh dương cho bài giảng */
+}
+
+.lecture-type.baithi i {
+    color: #e74c3c; /* Đỏ cho bài thi */
+}
+
+.lecture-type.kiemtra i {
+    color: #f39c12; /* Cam cho bài kiểm tra */
+}
+
+.lecture-type.baitap i {
+    color: #27ae60; /* Xanh lá cho bài tập */
+}
+
+/* Cấu trúc item bài học */
+.lecture-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background-color: #fff;
+}
+
+.lecture-item-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f9f9f9;
+}
+
+.lecture-title {
+    flex: 1;
+}
+
+.lecture-title h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.lecture-item-body {
+    padding: 12px 15px;
+}
+
+.lecture-meta {
+    display: flex;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.lecture-meta span {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.lecture-meta i {
+    margin-right: 5px;
+    color: #888;
+}
+
+.lecture-item-footer {
+    padding: 0 15px 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Styles cho nút xem bài */
+.view-lecture-btn {
+    background-color: #4a6fa5;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.view-lecture-btn:hover {
+    background-color: #385d8a;
+}
+
+.view-lecture-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.download-lecture-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.download-lecture-btn:hover {
+    background-color: #219653;
+}
+
+.download-lecture-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Hiển thị thanh tiến độ */
+.lecture-progress {
+    margin-top: 10px;
+}
+
+.progress-bar-container {
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4a6fa5;
+    border-radius: 3px;
+}
+
+.lecture-progress.completed .progress-bar {
+    background-color: #27ae60;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.lecture-progress.completed .progress-text {
+    color: #27ae60;
+}
+
+/* Styles cho thông tin loại khóa học */
+.course-type-info {
+    background-color: #f8f9fa;
+    border-left: 4px solid #4a6fa5;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 0 4px 4px 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.course-type-info i {
+    color: #4a6fa5;
+    margin-right: 5px;
+}
+
+/* Styles riêng cho các loại bài học từ CSDL */
+/* Bài giảng (baigiang) */
+.lecture-item.theory-lecture .lecture-type {
+    background-color: #e3f2fd;
+}
+
+.lecture-item.theory-lecture .lecture-type i {
+    color: #3498db;
+}
+
+.lecture-item.theory-lecture .view-lecture-btn {
+    background-color: #3498db;
+}
+
+/* Bài kiểm tra (baikiemtra) */
+.lecture-item.quiz-lecture .lecture-type {
+    background-color: #fff8e1;
+}
+
+.lecture-item.quiz-lecture .lecture-type i {
+    color: #f39c12;
+}
+
+.lecture-item.quiz-lecture .view-lecture-btn {
+    background-color: #f39c12;
+}
+
+/* Bài thi (baithi) */
+.lecture-item.exam-lecture .lecture-type {
+    background-color: #ffebee;
+}
+
+.lecture-item.exam-lecture .lecture-type i {
+    color: #e74c3c;
+}
+
+.lecture-item.exam-lecture .view-lecture-btn {
+    background-color: #e74c3c;
+}
+
+/* Loại kiểu cũ không còn dùng nữa */
+.lecture-type.baigiang i {
+    color: #3498db;
+}
+
+.lecture-type.baithi i {
+    color: #e74c3c;
+}
+
+.lecture-type.kiemtra i,
+.lecture-type.baikiemtra i {
+    color: #f39c12;
+}
+
+/* Messages Container */
+.messages-container {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.message i {
+    font-size: 20px;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+} 

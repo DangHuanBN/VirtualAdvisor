@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh giá bài giảng | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/student.css">
+    <link rel="stylesheet" href="../css/feedback.css">
+    <script src="/main/api.js"></script>
+    <script src="../js/modules/common.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>SINH VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="../../index.html" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="student-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <!-- Toggle Button for Sidebar -->
+            <div class="sidebar-header">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="student-info">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Student Avatar">
+                <h3 id="studentName">Đang tải...</h3>
+                <p id="studentId">ID: Đang tải...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html" title="Trang chủ"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="courses.html" title="Khóa học của tôi"><i class="fas fa-book"></i> <span>Khóa học của tôi</span></a></li>
+                    <li><a href="learning-path.html" title="Lộ trình học tập"><i class="fas fa-road"></i> <span>Lộ trình học tập</span></a></li>
+                    <li><a href="results.html" title="Kết quả học tập"><i class="fas fa-chart-bar"></i> <span>Kết quả học tập</span></a></li>
+                    <li class="active"><a href="feedback.html" title="Đánh giá bài giảng"><i class="fas fa-comment"></i> <span>Đánh giá bài giảng</span></a></li>
+                    <li><a href="chatbot.html" title="Chat với AI"><i class="fas fa-robot"></i> <span>Chat với AI</span></a></li>
+                    <li><a href="notifications.html" title="Thông báo"><i class="fas fa-bell"></i> <span>Thông báo</span></a></li>
+                    <li><a href="profile.html" title="Thông tin cá nhân"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Feedback Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Đánh giá bài giảng</h2>
+                <div class="feedback-filters">
+                    <select id="courseFilter">
+                        <option value="">Tất cả khóa học</option>
+                        <!-- Khóa học sẽ được tải bằng JavaScript -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Feedback List -->
+            <div class="feedback-container">
+                <!-- Pending Feedback -->
+                <div class="feedback-section">
+                    <h3>Bài giảng cần đánh giá</h3>
+                    <div class="feedback-list" id="pendingFeedbackList">
+                        <!-- Bài giảng cần đánh giá sẽ được tải bằng JavaScript -->
+                        <div class="loading-message">Đang tải bài giảng...</div>
+                    </div>
+                </div>
+
+                <!-- Previous Feedback -->
+                <div class="feedback-section">
+                    <h3>Đánh giá đã gửi</h3>
+                    <div class="feedback-list" id="submittedFeedbackList">
+                        <!-- Đánh giá đã gửi sẽ được tải bằng JavaScript -->
+                        <div class="loading-message">Đang tải đánh giá...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Template for pending feedback card -->
+    <template id="pendingFeedbackTemplate">
+        <div class="feedback-card" data-lecture-id="">
+            <div class="lecture-info">
+                <h4></h4>
+                <p class="course-name"></p>
+                <p class="teacher-name"></p>
+                <p class="completion-date"></p>
+            </div>
+            <div class="rating-section">
+                <div class="star-rating">
+                    <i class="far fa-star" data-rating="1"></i>
+                    <i class="far fa-star" data-rating="2"></i>
+                    <i class="far fa-star" data-rating="3"></i>
+                    <i class="far fa-star" data-rating="4"></i>
+                    <i class="far fa-star" data-rating="5"></i>
+                </div>
+                <textarea placeholder="Nhập đánh giá của bạn về bài giảng..."></textarea>
+                <button class="submit-feedback">Gửi đánh giá</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Template for submitted feedback card -->
+    <template id="submittedFeedbackTemplate">
+        <div class="feedback-card submitted">
+            <div class="lecture-info">
+                <h4></h4>
+                <p class="course-name"></p>
+            </div>
+            <div class="rating-section">
+                <div class="star-rating"></div>
+                <p class="feedback-text"></p>
+                <span class="submitted-date"></span>
+            </div>
+        </div>
+    </template>
+
+    <script src="../js/student.js"></script>
+    <script src="../js/modules/feedback.js"></script>
+</body>
+</html> 

@@ -1,0 +1,205 @@
+{
+  "lecture_id": 15,
+  "questions": [
+    {
+      "question": "Hệ điều hành Android là gì?",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "4"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Thủ đô của Việt Nam là gì?",
+      "options": {
+        "A": "Hà Nội",
+        "B": "TP. Hồ Chí Minh",
+        "C": "Đà Nẵng",
+        "D": "Hải Phòng"
+      },
+      "correct": "A"
+    },
+    {
+      "question": "Số nào là số nguyên tố?",
+      "options": {
+        "A": "4",
+        "B": "6",
+        "C": "7",
+        "D": "9"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "Màu của lá cây là?",
+      "options": {
+        "A": "Đỏ",
+        "B": "Vàng",
+        "C": "Xanh",
+        "D": "Tím"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "10 / 2 bằng mấy?",
+      "options": {
+        "A": "2",
+        "B": "3",
+        "C": "4",
+        "D": "5"
+      },
+      "correct": "D"
+    },
+    {
+      "question": "Mặt trời mọc ở hướng nào?",
+      "options": {
+        "A": "Tây",
+        "B": "Nam",
+        "C": "Đông",
+        "D": "Bắc"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "Quốc kỳ Việt Nam có màu gì?",
+      "options": {
+        "A": "Xanh",
+        "B": "Đỏ",
+        "C": "Vàng",
+        "D": "Trắng"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "3 * 4 = ?",
+      "options": {
+        "A": "7",
+        "B": "10",
+        "C": "12",
+        "D": "14"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "Trái đất có bao nhiêu châu lục?",
+      "options": {
+        "A": "5",
+        "B": "6",
+        "C": "7",
+        "D": "8"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "Hình nào có 3 cạnh?",
+      "options": {
+        "A": "Vuông",
+        "B": "Tam giác",
+        "C": "Tròn",
+        "D": "Ngũ giác"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "100 - 45 = ?",
+      "options": {
+        "A": "55",
+        "B": "60",
+        "C": "65",
+        "D": "70"
+      },
+      "correct": "A"
+    },
+    {
+      "question": "Ai là tác giả của \"Truyện Kiều\"?",
+      "options": {
+        "A": "Nguyễn Trãi",
+        "B": "Nguyễn Du",
+        "C": "Hồ Xuân Hương",
+        "D": "Nguyễn Đình Chiểu"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Quốc gia nào có tháp Eiffel?",
+      "options": {
+        "A": "Đức",
+        "B": "Anh",
+        "C": "Pháp",
+        "D": "Ý"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "Mùa đông thường có thời tiết thế nào?",
+      "options": {
+        "A": "Nóng",
+        "B": "Lạnh",
+        "C": "Mưa",
+        "D": "Nắng"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Tháng nào có ít ngày nhất?",
+      "options": {
+        "A": "Tháng 1",
+        "B": "Tháng 2",
+        "C": "Tháng 4",
+        "D": "Tháng 6"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Mèo kêu như thế nào?",
+      "options": {
+        "A": "Gâu",
+        "B": "Meo",
+        "C": "Ò ó o",
+        "D": "Két"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "8 + 5 = ?",
+      "options": {
+        "A": "12",
+        "B": "13",
+        "C": "14",
+        "D": "15"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Nước có công thức hóa học là gì?",
+      "options": {
+        "A": "CO2",
+        "B": "H2O",
+        "C": "NaCl",
+        "D": "CH4"
+      },
+      "correct": "B"
+    },
+    {
+      "question": "Việt Nam nằm ở châu lục nào?",
+      "options": {
+        "A": "Châu Âu",
+        "B": "Châu Phi",
+        "C": "Châu Á",
+        "D": "Châu Úc"
+      },
+      "correct": "C"
+    },
+    {
+      "question": "Động vật nào biết bay?",
+      "options": {
+        "A": "Cá",
+        "B": "Mèo",
+        "C": "Chim",
+        "D": "Chó"
+      },
+      "correct": "C"
+    }
+  ]
+}

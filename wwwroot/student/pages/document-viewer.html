@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem tài liệu - Virtual Advisor</title>
+    <link rel="stylesheet" href="/student/css/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .document-viewer {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .document-header {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .document-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 60%;
+        }
+        
+        .document-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #viewerContainer {
+            flex: 1;
+            overflow: auto;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        #pdfCanvas {
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            background-color: white;
+        }
+        
+        .controls {
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn i {
+            margin-right: 5px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .page-info {
+            margin: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .zoom-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        #loadingIndicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.1rem;
+            color: #444;
+        }
+        
+        .progress-section {
+            margin-bottom: 20px;
+        }
+        
+        .progress-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #3498db;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        #errorMessage {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .document-title {
+                max-width: 80%;
+                font-size: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-group, .zoom-controls {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Thêm CSS cho loading container */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 30px;
+        }
+        
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        .completed-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .completed-message i {
+            color: #2e7d32;
+            font-size: 1.2rem;
+        }
+        
+        /* Thêm CSS cho phần thông tin thời gian học */
+        .learning-time-info {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .learning-time-info p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+        
+        .learning-time-info .source-info {
+            margin-top: 8px;
+            font-style: italic;
+            color: #666;
+            text-align: right;
+        }
+        
+        /* Thêm CSS cho modal hiển thị chi tiết phiên học */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 15px 20px;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .sessions-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .sessions-table th,
+        .sessions-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .sessions-table th {
+            background-color: #f0f0f0;
+            font-weight: 600;
+        }
+        
+        .sessions-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .sessions-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .show-sessions-link {
+            cursor: pointer;
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        .show-sessions-link:hover {
+            text-decoration: none;
+        }
+        
+        /* CSS đặc biệt cho phần thông tin sinh viên */
+        .student-viewer-info {
+            text-align: center;
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .student-viewer-info .student-title {
+            display: block !important;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .student-viewer-info p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .sidebar.collapsed .student-viewer-info .student-title {
+            display: block !important;
+        }
+        
+        .sidebar.collapsed .student-viewer-info p {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-viewer">
+        <div class="document-header">
+            <div class="document-title">
+                <i class="fas fa-file-pdf"></i>
+                <span id="documentTitle">Đang tải tài liệu...</span>
+            </div>
+            <button class="btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </button>
+        </div>
+        
+        <div class="document-content">
+            <div class="sidebar">
+                <div class="student-info student-viewer-info">
+                    <h3 class="student-title">Thông tin sinh viên</h3>
+                    <p class="student-name-line"><strong>Tên:</strong> <span id="studentName">-</span></p>
+                    <p class="student-id-line"><strong>ID:</strong> <span id="studentId">-</span></p>
+                </div>
+                
+                <!-- Thêm phần hiển thị thông tin thời gian học -->
+                <div id="learningTimeInfo" class="learning-time-info">
+                    <p><strong>Tổng thời lượng bài giảng:</strong> <span id="formattedMaxHours">0 tiếng 0 phút</span></p>
+                    <p><strong>Tổng thời gian bạn đã học:</strong> <span id="formattedStudiedHours">0 tiếng 0 phút</span> 
+                    <p class="show-sessions-link" onclick="showSessionsModal()">Xem chi tiết</p></p>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-title">Tiến độ học tập</div>
+                    <div class="progress-bar-container">
+                        <div id="readingProgress" class="progress-bar"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span>0%</span>
+                        <span id="progressPercentage">0%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+                
+                <div id="completionStatus" class="hidden">
+                    <p class="completed-message">
+                        <i class="fas fa-check-circle"></i>
+                        Đã hoàn thành!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <div id="pdfLoading" class="loading-container">
+                    <div class="loader"></div>
+                    <p>Đang tải tài liệu...</p>
+                </div>
+                
+                <div id="errorMessage" class="hidden">
+                    Đã xảy ra lỗi khi tải tài liệu.
+                </div>
+                
+                <div id="viewerContainer" class="hidden">
+                    <canvas id="pdfCanvas"></canvas>
+                    
+                    <div id="loadingIndicator" style="display: none;">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Đang tải tài liệu...</div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <div class="btn-group">
+                        <button id="prev" class="btn">
+                            <i class="fas fa-chevron-left"></i> Trang trước
+                        </button>
+                        <div class="page-info">
+                            Trang <span id="page_num">1</span> / <span id="numPages">-</span>
+                        </div>
+                        <button id="next" class="btn">
+                            Trang sau <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="zoom-controls">
+                        <button id="zoomOut" class="btn">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button id="zoomIn" class="btn">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <button id="downloadBtn" class="btn">
+                        <i class="fas fa-download"></i> Tải xuống
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal hiển thị chi tiết phiên học -->
+    <div id="sessionsModal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Chi tiết các phiên học</h3>
+                <button class="modal-close" onclick="closeSessionsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="sessionsLoading">Đang tải dữ liệu phiên học...</div>
+                <div id="sessionsContent" class="hidden">
+                    <table id="sessionsTable" class="sessions-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Thời gian bắt đầu</th>
+                                <th>Thời gian kết thúc</th>
+                                <th>Thời lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sessionsTableBody">
+                            <!-- Dữ liệu phiên học sẽ được chèn vào đây bằng JavaScript -->
+                        </tbody>
+                    </table>
+                    <div id="sessionsSummary" class="sessions-summary">
+                        <div><strong>Tổng số phiên:</strong> <span id="sessionCount">0</span></div>
+                        <div><strong>Tổng thời gian:</strong> <span id="totalSessionHours">0 tiếng 0 phút</span></div>
+                    </div>
+                </div>
+                <div id="sessionsError" class="hidden">
+                    Không thể tải dữ liệu phiên học. Vui lòng thử lại sau.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/libs/pdfjs/pdf.min.js"></script>
+    <script src="/student/js/document-viewer.js"></script>
+    <script>
+        // Khởi tạo viewer khi trang tải xong
+        document.addEventListener('DOMContentLoaded', function() {
+            initPdfViewer();
+            fetchLearningTimeInfo();
+        });
+        
+        // Hàm quay lại trang trước
+        function goBack() {
+            // Cố gắng dừng theo dõi nếu đang hoạt động
+            if (window.learningTracker) {
+                try {
+                    window.learningTracker.stopTracking();
+                } catch (e) {
+                    console.error("Lỗi khi dừng tracking:", e);
+                }
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const returnUrl = urlParams.get('returnUrl');
+            const courseId = urlParams.get('courseId');
+            const courseName = urlParams.get('courseName');
+            
+            if (returnUrl) {
+                let fullReturnUrl = returnUrl;
+                
+                // Nếu có thông tin courseId, thêm vào URL trả về
+                if (courseId) {
+                    const separator = returnUrl.includes('?') ? '&' : '?';
+                    fullReturnUrl += `${separator}courseId=${courseId}`;
+                    
+                    if (courseName) {
+                        fullReturnUrl += `&courseName=${encodeURIComponent(courseName)}`;
+                    }
+                }
+                
+                window.location.href = fullReturnUrl;
+            } else {
+                history.back();
+            }
+        }
+        
+        // Hàm lấy thông tin thời gian học
+        function fetchLearningTimeInfo() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const lectureId = urlParams.get('lectureId');
+                
+                // Sử dụng userId từ biến global nếu có
+                let user = null;
+                if (typeof userId !== 'undefined' && userId) {
+                    user = userId;
+                } else {
+                    refreshUserInfo();
+                    user = userId;
+                }
+                
+                if (!lectureId || !user) {
+                    console.error('Thiếu thông tin lectureId hoặc userId');
+                    return;
+                }
+                
+                // Gọi API để lấy thông tin thời gian học
+                fetch(`/api/LearningTime/${lectureId}/${user}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            // Cập nhật thông tin lên giao diện
+                            document.getElementById('formattedMaxHours').textContent = data.data.formattedMaxHours;
+                            document.getElementById('formattedStudiedHours').textContent = data.data.formattedStudiedHours;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi lấy thông tin thời gian học:', error);
+                    });
+            } catch (error) {
+                console.error('Lỗi khi xử lý thông tin thời gian học:', error);
+            }
+        }
+        
+        // Hàm hiển thị modal chi tiết phiên học
+        function showSessionsModal() {
+            const modal = document.getElementById('sessionsModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                fetchSessionsData();
+            }
+        }
+        
+        // Hàm đóng modal
+        function closeSessionsModal() {
+            const modal = document.getElementById('sessionsModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Hàm lấy dữ liệu phiên học từ API
+        function fetchSessionsData() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const lectureId = urlParams.get('lectureId');
+                
+                // Lấy userId
+                let user = null;
+                if (typeof userId !== 'undefined' && userId) {
+                    user = userId;
+                } else {
+                    refreshUserInfo();
+                    user = userId;
+                }
+                
+                if (!lectureId || !user) {
+                    showSessionsError('Thiếu thông tin lectureId hoặc userId');
+                    return;
+                }
+                
+                const loading = document.getElementById('sessionsLoading');
+                const content = document.getElementById('sessionsContent');
+                const error = document.getElementById('sessionsError');
+                
+                if (loading) loading.classList.remove('hidden');
+                if (content) content.classList.add('hidden');
+                if (error) error.classList.add('hidden');
+                
+                // Gọi API lấy thông tin phiên học
+                fetch(`/api/LearningTime/sessions/${lectureId}/${user}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success && data.data) {
+                            renderSessionsData(data.data);
+                            
+                            if (loading) loading.classList.add('hidden');
+                            if (content) content.classList.remove('hidden');
+                        } else {
+                            throw new Error('Dữ liệu không hợp lệ');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi lấy thông tin phiên học:', error);
+                        showSessionsError('Không thể tải dữ liệu phiên học');
+                    });
+            } catch (error) {
+                console.error('Lỗi khi xử lý yêu cầu:', error);
+                showSessionsError('Lỗi khi xử lý yêu cầu');
+            }
+        }
+        
+        // Hàm hiển thị lỗi
+        function showSessionsError(message) {
+            const loading = document.getElementById('sessionsLoading');
+            const content = document.getElementById('sessionsContent');
+            const error = document.getElementById('sessionsError');
+            
+            if (loading) loading.classList.add('hidden');
+            if (content) content.classList.add('hidden');
+            if (error) {
+                error.textContent = message || 'Có lỗi xảy ra khi tải dữ liệu phiên học';
+                error.classList.remove('hidden');
+            }
+        }
+        
+        // Hàm hiển thị dữ liệu phiên học
+        function renderSessionsData(data) {
+            const tableBody = document.getElementById('sessionsTableBody');
+            const sessionCount = document.getElementById('sessionCount');
+            const totalSessionHours = document.getElementById('totalSessionHours');
+            
+            if (!tableBody || !data.sessions) return;
+            
+            // Xóa dữ liệu cũ
+            tableBody.innerHTML = '';
+            
+            // Thêm dữ liệu mới
+            if (data.sessions.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align: center;">Không có dữ liệu phiên học</td>`;
+                tableBody.appendChild(row);
+            } else {
+                data.sessions.forEach((session, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${session.startTime}</td>
+                        <td>${session.endTime}</td>
+                        <td>${session.duration}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            // Cập nhật thông tin tổng
+            if (sessionCount) sessionCount.textContent = data.sessionCount || 0;
+            if (totalSessionHours) totalSessionHours.textContent = data.formattedTotalHours || "0 tiếng 0 phút";
+        }
+        
+        // Đóng modal khi click ngoài nội dung
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('sessionsModal');
+            if (event.target === modal) {
+                closeSessionsModal();
+            }
+        });
+    </script>
+    
+    <script type="module">
+        try {
+            // Tạo script element để tải ping.js
+            const scriptElement = document.createElement('script');
+            scriptElement.src = 'http://localhost:8000/ping.js'; // Đường dẫn đến file ping.js trên server Python
+            scriptElement.type = 'text/javascript'; // Đổi từ 'module' sang 'text/javascript'
+            
+            scriptElement.onload = function() {
+                console.log("Tải ping.js thành công, đang khởi tạo theo dõi...");
+                initLearningTracker();
+            };
+            
+            scriptElement.onerror = function() {
+                console.error("Không thể tải ping.js từ server. Sử dụng phiên bản offline");
+                // Tạo tracking giả nếu không tải được
+                window.learningTracker = {
+                    startTracking: function() { console.log("Mô phỏng bắt đầu theo dõi"); },
+                    stopTracking: function() { console.log("Mô phỏng dừng theo dõi"); }
+                };
+                // Vẫn khởi tạo tracker giả để đảm bảo phần còn lại của mã hoạt động
+                initLearningTracker();
+            };
+            
+            document.head.appendChild(scriptElement);
+        } catch (e) {
+            console.error("Lỗi khi tải script ping.js:", e);
+            // Tạo tracking giả nếu có lỗi
+            window.learningTracker = {
+                startTracking: function() { console.log("Mô phỏng bắt đầu theo dõi"); },
+                stopTracking: function() { console.log("Mô phỏng dừng theo dõi"); }
+            };
+            // Vẫn khởi tạo tracker giả
+            initLearningTracker();
+        }
+        
+        // Khởi tạo hệ thống theo dõi thời gian học
+        function initLearningTracker() {
+            try {
+                // Lấy thông tin từ URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const lectureId = urlParams.get('lectureId');
+                
+                // Lấy thông tin user từ hàm có sẵn trong document-viewer.js
+                let user = null;
+                if (typeof refreshUserInfo === 'function') {
+                    refreshUserInfo();
+                }
+                
+                if (typeof userId !== 'undefined' && userId) {
+                    user = userId;
+                } else {
+                    const userInfo = getUserInfo();
+                    user = userInfo?.id || userInfo?.userId || 12;
+                }
+                
+                // Kiểm tra nếu LearningTracker đã được tải từ server
+                if (typeof window.LearningTracker !== 'undefined') {
+                    console.log("Sử dụng LearningTracker từ server");
+                    window.learningTracker = new window.LearningTracker({
+                        apiEndpoint: 'http://localhost:8000/api/learning/ping',
+                        pingInterval: 120000
+                    });
+                } else {
+                    console.log("Sử dụng LearningTracker mô phỏng");
+                    // Sử dụng tracker giả đã tạo trước đó
+                }
+                
+                // Bắt đầu theo dõi nếu có đủ thông tin
+                if (lectureId && user) {
+                    console.log(`Bắt đầu theo dõi thời gian học: lecture_id=${lectureId}, user_id=${user}`);
+                    window.learningTracker.startTracking(user, lectureId);
+                } else {
+                    console.error('Thiếu thông tin lectureId hoặc userId để theo dõi thời gian học');
+                }
+            } catch (e) {
+                console.error("Lỗi khi khởi tạo LearningTracker:", e);
+            }
+        }
+        
+        // Thêm sự kiện khi đóng trang
+        window.addEventListener('beforeunload', function() {
+            if (window.learningTracker) {
+                try {
+                    window.learningTracker.stopTracking();
+                } catch (e) {
+                    console.error("Lỗi khi dừng tracking:", e);
+                }
+            }
+        });
+    </script>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

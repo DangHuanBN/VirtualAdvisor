@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý kho dữ liệu | QUẢN TRỊ VIÊN | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/database.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                </span>
+            </div>
+            <div class="admin-title">
+                <h1>QUẢN TRỊ VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" id="logout-btn" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Admin Avatar">
+                <h3 id="admin-name">Admin Name</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li><a href="courses.html"><i class="fas fa-book"></i> Quản lý học tập</a></li>
+                    <li class="active"><a href="database.html"><i class="fas fa-database"></i> Quản lý kho dữ liệu</a>
+                    </li>
+                    <li><a href="users.html"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                    <li><a href="permissions.html"><i class="fas fa-user-shield"></i> Phân quyền người dùng</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div id="database-content">
+                <div class="page-title">
+                    <h2>Quản lý kho dữ liệu</h2>
+                </div>
+
+                <!-- Database Stats -->
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-database"></i></div>
+                        <div class="stats-info">
+                            <h3>Dung lượng CSDL</h3>
+                            <p class="stats-number">1.36 MB</p>
+                            <p class="stats-trend negative"><i class="fas fa-arrow-up"></i> 15% từ tháng trước</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-table"></i></div>
+                        <div class="stats-info">
+                            <h3>Số bảng dữ liệu</h3>
+                            <p class="stats-number">10</p>
+                            <p class="stats-trend neutral"><i class="fas fa-equals"></i> Không thay đổi</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-save"></i></div>
+                        <div class="stats-info">
+                            <h3>Bản sao lưu</h3>
+                            <p class="stats-number">0</p>
+                            <p class="stats-trend positive"><i class="fas fa-arrow-up"></i> 2 bản từ tháng trước</p>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stats-info">
+                            <h3>Sao lưu gần nhất</h3>
+                            <p class="stats-number">Chưa có</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Actions -->
+                <div class="section-container">
+                    <div class="section-title">
+                        <h2>Thao tác dữ liệu</h2>
+                    </div>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3>Sao lưu dữ liệu</h3>
+                            <p>Tạo bản sao lưu hoàn chỉnh của CSDL</p>
+                            <div class="feature-button-container">
+                                <button class="action-btn primary-btn backup-btn" id="backup-btn">Sao lưu ngay</button>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                            <h3>Khôi phục dữ liệu</h3>
+                            <p>Khôi phục CSDL từ bản sao lưu</p>
+                            <div class="feature-button-container">
+                                <button class="action-btn primary-btn restore-btn" id="restore-btn">Chọn bản sao lưu</button>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>Huấn luyện dữ liệu</h3>
+                            <p>Huấn luyện AI với tài liệu học tập để hỗ trợ sinh viên</p>
+                            <div class="feature-button-container">
+                                <button id="show-training-btn" class="action-btn primary-btn">Huấn luyện AI</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trạng thái huấn luyện -->
+                <div class="section-container">
+                    <div class="section-title">
+                        <h2>Trạng thái huấn luyện</h2>
+                    </div>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên môn học</th>
+                                    <th>Thời gian huấn luyện</th>
+                                    <th>Trạng thái</th>
+                                    <th>Độ chính xác</th>
+                                    <th>Người tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dữ liệu sẽ được tải từ API -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Lịch sử sao lưu -->
+                <div class="section-container">
+                    <div class="section-title">
+                        <h2>Lịch sử sao lưu</h2>
+                    </div>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên bản sao lưu</th>
+                                    <th>Thời gian</th>
+                                    <th>Kích thước</th>
+                                    <th>Trạng thái</th>
+                                    <th>Người tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dữ liệu sẽ được tải từ API -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Content -->
+            <div id="training-content" style="display: none;">
+                <div class="container">
+                    <button id="back-to-database-btn" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1 class="page-title">Huấn luyện dữ liệu AI</h1>
+
+                    <div class="text-center mt-5 mb-5">
+                        <p>Để truy cập trang huấn luyện AI, vui lòng nhấn vào nút bên dưới:</p>
+                        <a href="training.html" class="btn btn-primary">Mở trang huấn luyện AI</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sao lưu -->
+    <div id="backup-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Sao lưu dữ liệu</h3>
+                <button class="close-modal" id="close-backup-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="backup-name">Tên bản sao lưu</label>
+                    <input type="text" id="backup-name" class="form-control" placeholder="Ví dụ: sao_luu_thang_6_2025" readonly>
+                </div>
+                
+                <div class="info-message">
+                    <p><i class="fas fa-info-circle"></i> Hệ thống sẽ tự động sao lưu toàn bộ dữ liệu với tên mặc định.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancel-backup">Hủy</button>
+                <button class="primary-btn" id="start-backup">Bắt đầu sao lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Khôi phục -->
+    <div id="restore-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Khôi phục dữ liệu</h3>
+                <button class="close-modal" id="close-restore-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Chọn bản sao lưu để khôi phục</label>
+                    <select id="restore-backup-select" class="form-control">
+                        <option value="">-- Chọn bản sao lưu --</option>
+                        <!-- Danh sách bản sao lưu sẽ được tải từ API -->
+                    </select>
+                </div>
+                
+                <div class="warning-message">
+                    <p><i class="fas fa-exclamation-triangle"></i> Cảnh báo: Việc khôi phục sẽ thay thế dữ liệu hiện tại. Vui lòng sao lưu trước khi khôi phục.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancel-restore">Hủy</button>
+                <button class="primary-btn" id="start-restore">Bắt đầu khôi phục</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/modules/common.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="/main/api.js"></script>
+    
+    <script>
+        // Khởi tạo các module
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị tên người dùng
+            const adminNameElement = document.getElementById('admin-name');
+            const userData = localStorage.getItem('userInfo') || localStorage.getItem('user');
+            
+            if (userData && adminNameElement) {
+                const user = JSON.parse(userData);
+                adminNameElement.textContent = user.fullName || 'Admin';
+            }
+            
+            // Xử lý sự kiện đăng xuất
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Xóa dữ liệu người dùng
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userInfo');
+                    localStorage.removeItem('user');
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('userInfo');
+                    // Chuyển hướng về trang đăng nhập
+                    window.location.href = '/main/login.html';
+                });
+            }
+            
+            // Xử lý sự kiện huấn luyện AI
+            const showTrainingBtn = document.getElementById('show-training-btn');
+            const backToDatabaseBtn = document.getElementById('back-to-database-btn');
+            const databaseContent = document.getElementById('database-content');
+            const trainingContent = document.getElementById('training-content');
+            
+            if (showTrainingBtn) {
+                showTrainingBtn.addEventListener('click', function() {
+                    databaseContent.style.display = 'none';
+                    trainingContent.style.display = 'block';
+                });
+            }
+            
+            if (backToDatabaseBtn) {
+                backToDatabaseBtn.addEventListener('click', function() {
+                    trainingContent.style.display = 'none';
+                    databaseContent.style.display = 'block';
+                });
+            }
+            
+            // Xử lý modal sao lưu
+            const backupBtn = document.getElementById('backup-btn');
+            const backupModal = document.getElementById('backup-modal');
+            const closeBackupModal = document.getElementById('close-backup-modal');
+            const cancelBackup = document.getElementById('cancel-backup');
+            
+            if (backupBtn && backupModal) {
+                backupBtn.addEventListener('click', function() {
+                    // Tạo tên file sao lưu mặc định với timestamp
+                    const now = new Date();
+                    const timestamp = now.getFullYear() + 
+                                     ('0' + (now.getMonth() + 1)).slice(-2) + 
+                                     ('0' + now.getDate()).slice(-2) + '_' +
+                                     ('0' + now.getHours()).slice(-2) + 
+                                     ('0' + now.getMinutes()).slice(-2) + 
+                                     ('0' + now.getSeconds()).slice(-2);
+                    const defaultName = `backup_${timestamp}.sql`;
+                    
+                    // Đặt tên mặc định vào ô input
+                    const backupNameInput = document.getElementById('backup-name');
+                    if (backupNameInput) {
+                        backupNameInput.value = defaultName;
+                    }
+                    
+                    backupModal.style.display = 'block';
+                });
+            }
+            
+            if (closeBackupModal) {
+                closeBackupModal.addEventListener('click', function() {
+                    backupModal.style.display = 'none';
+                });
+            }
+            
+            if (cancelBackup) {
+                cancelBackup.addEventListener('click', function() {
+                    backupModal.style.display = 'none';
+                });
+            }
+            
+            // Xử lý modal khôi phục
+            const restoreBtn = document.getElementById('restore-btn');
+            const restoreModal = document.getElementById('restore-modal');
+            const closeRestoreModal = document.getElementById('close-restore-modal');
+            const cancelRestore = document.getElementById('cancel-restore');
+            
+            if (restoreBtn && restoreModal) {
+                restoreBtn.addEventListener('click', function() {
+                    restoreModal.style.display = 'block';
+                });
+            }
+            
+            if (closeRestoreModal) {
+                closeRestoreModal.addEventListener('click', function() {
+                    restoreModal.style.display = 'none';
+                });
+            }
+            
+            if (cancelRestore) {
+                cancelRestore.addEventListener('click', function() {
+                    restoreModal.style.display = 'none';
+                });
+            }
+            
+            // Đóng modal khi click bên ngoài
+            window.addEventListener('click', function(event) {
+                if (event.target == backupModal) {
+                    backupModal.style.display = 'none';
+                }
+                if (event.target == restoreModal) {
+                    restoreModal.style.display = 'none';
+                }
+            });
+            
+            // Xử lý sự kiện sao lưu
+            const startBackupBtn = document.getElementById('start-backup');
+            if (startBackupBtn) {
+                startBackupBtn.addEventListener('click', function() {
+                    const backupName = document.getElementById('backup-name').value;
+                    if (!backupName) {
+                        alert('Vui lòng nhập tên bản sao lưu');
+                        return;
+                    }
+                    
+                    // Hiển thị trạng thái đang sao lưu
+                    startBackupBtn.textContent = 'Đang sao lưu...';
+                    startBackupBtn.disabled = true;
+                    
+                    // Gọi API sao lưu CSDL
+                    fetch('/api/backup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Lỗi khi sao lưu: ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        startBackupBtn.textContent = 'Bắt đầu sao lưu';
+                        startBackupBtn.disabled = false;
+                        
+                        if (data.success) {
+                            backupModal.style.display = 'none';
+                            alert('Sao lưu thành công: ' + data.fileName);
+                            // Tải lại danh sách sao lưu
+                            loadBackupHistory();
+                        } else {
+                            alert('Lỗi khi sao lưu: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        startBackupBtn.textContent = 'Bắt đầu sao lưu';
+                        startBackupBtn.disabled = false;
+                        alert('Lỗi khi thực hiện sao lưu: ' + error.message);
+                    });
+                });
+            }
+            
+            // Xử lý sự kiện khôi phục
+            const startRestoreBtn = document.getElementById('start-restore');
+            if (startRestoreBtn) {
+                startRestoreBtn.addEventListener('click', function() {
+                    const backupSelect = document.getElementById('restore-backup-select');
+                    if (backupSelect.value === '') {
+                        alert('Vui lòng chọn bản sao lưu để khôi phục');
+                        return;
+                    }
+                    
+                    const confirmRestore = confirm('Bạn có chắc chắn muốn khôi phục hệ thống về bản sao lưu này? Dữ liệu hiện tại có thể bị mất.');
+                    if (confirmRestore) {
+                        // Hiển thị trạng thái đang khôi phục
+                        startRestoreBtn.textContent = 'Đang khôi phục...';
+                        startRestoreBtn.disabled = true;
+                        
+                        // Gọi API khôi phục CSDL
+                        fetch(`/api/backup/restore/${backupSelect.value}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+                            }
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Lỗi khi khôi phục: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            startRestoreBtn.textContent = 'Bắt đầu khôi phục';
+                            startRestoreBtn.disabled = false;
+                            
+                            if (data.success) {
+                                restoreModal.style.display = 'none';
+                                alert('Khôi phục thành công! Hệ thống sẽ tải lại trang để áp dụng thay đổi.');
+                                // Tải lại trang sau 2 giây
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            } else {
+                                alert('Lỗi khi khôi phục: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            startRestoreBtn.textContent = 'Bắt đầu khôi phục';
+                            startRestoreBtn.disabled = false;
+                            alert('Lỗi khi thực hiện khôi phục: ' + error.message);
+                        });
+                    }
+                });
+            }
+            
+            // Tải danh sách file sao lưu
+            loadBackupHistory();
+            
+            // Khi mở modal khôi phục, tải danh sách file sao lưu
+            if (restoreBtn) {
+                restoreBtn.addEventListener('click', function() {
+                    loadBackupFileList();
+                });
+            }
+        });
+        
+        // Hàm tải danh sách file sao lưu cho modal khôi phục
+        function loadBackupFileList() {
+            const backupSelect = document.getElementById('restore-backup-select');
+            if (backupSelect) {
+                backupSelect.innerHTML = '<option value="">-- Đang tải danh sách file --</option>';
+                
+                // Gọi API để lấy danh sách backup
+                fetch('/api/backup', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        backupSelect.innerHTML = '<option value="">Không có file sao lưu nào</option>';
+                        return;
+                    }
+                    
+                    let options = '<option value="">-- Chọn file sao lưu --</option>';
+                    data.forEach(backup => {
+                        options += `<option value="${backup.fileName}">${backup.fileName} (${backup.sizeFormatted}, ${backup.createdDate})</option>`;
+                    });
+                    
+                    backupSelect.innerHTML = options;
+                })
+                .catch(error => {
+                    console.error('Error loading backup files:', error);
+                    backupSelect.innerHTML = '<option value="">Lỗi khi tải danh sách</option>';
+                });
+            }
+        }
+        
+        // Hàm tải lịch sử sao lưu
+        function loadBackupHistory() {
+            const historyTable = document.querySelector('.section-container:nth-of-type(3) .data-table tbody');
+            if (historyTable) {
+                historyTable.innerHTML = '<tr><td colspan="7">Đang tải dữ liệu...</td></tr>';
+                
+                // Gọi API để lấy danh sách backup
+                fetch('/api/backup', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        historyTable.innerHTML = '<tr><td colspan="7">Chưa có bản sao lưu nào</td></tr>';
+                        return;
+                    }
+                    
+                    let rows = '';
+                    data.forEach((backup, index) => {
+                        const statusBadge = '<span class="status-badge success">Thành công</span>';
+                        
+                        rows += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${backup.fileName}</td>
+                            <td>${backup.createdDate}</td>
+                            <td>${backup.sizeFormatted}</td>
+                            <td>${statusBadge}</td>
+                            <td>Administrator</td>
+                            <td>
+                                <button class="action-btn download-btn" data-filename="${backup.fileName}">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="action-btn restore-btn" data-filename="${backup.fileName}">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                                <button class="action-btn delete-btn" data-filename="${backup.fileName}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+                    });
+                    
+                    historyTable.innerHTML = rows;
+                    
+                    // Thêm sự kiện cho các nút
+                    const downloadButtons = document.querySelectorAll('.download-btn');
+                    downloadButtons.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const fileName = this.getAttribute('data-filename');
+                            window.location.href = `/api/backup/downloads/${fileName}`;
+                        });
+                    });
+                    
+                    const restoreButtons = document.querySelectorAll('.restore-btn');
+                    restoreButtons.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const fileName = this.getAttribute('data-filename');
+                            if (confirm(`Bạn có chắc chắn muốn khôi phục từ file ${fileName}?`)) {
+                                restoreDatabase(fileName);
+                            }
+                        });
+                    });
+                    
+                    const deleteButtons = document.querySelectorAll('.delete-btn');
+                    deleteButtons.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const fileName = this.getAttribute('data-filename');
+                            if (confirm(`Bạn có chắc chắn muốn xóa file sao lưu ${fileName}?`)) {
+                                alert('Chức năng xóa file sao lưu chưa được triển khai.');
+                            }
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading backup history:', error);
+                    historyTable.innerHTML = '<tr><td colspan="7">Lỗi khi tải lịch sử sao lưu</td></tr>';
+                });
+            }
+        }
+        
+        // Hàm thực hiện khôi phục CSDL
+        function restoreDatabase(fileName) {
+            fetch(`/api/backup/restore/${fileName}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Lỗi khi khôi phục: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Khôi phục thành công! Hệ thống sẽ tải lại trang để áp dụng thay đổi.');
+                    // Tải lại trang sau 2 giây
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    alert('Lỗi khi khôi phục: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Lỗi khi thực hiện khôi phục: ' + error.message);
+            });
+        }
+    </script>
+
+    <style>
+        /* CSS cho modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 0;
+            width: 50%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #3b5998;
+            color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .info-message {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        
+        .warning-message {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        
+        .warning-message i {
+            margin-right: 8px;
+            color: #f0ad4e;
+        }
+        
+        /* CSS cho nút */
+        .primary-btn, .cancel-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .primary-btn {
+            background-color: #3b5998;
+            color: white;
+        }
+
+        .cancel-btn {
+            background-color: #f8f9fa;
+            color: #343a40;
+            border: 1px solid #dee2e6;
+        }
+        
+        /* CSS cho phần huấn luyện */
+        #training-content {
+            padding: 20px;
+        }
+        
+        .container {
+            position: relative;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #f8f9fa;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-5 {
+            margin-top: 40px;
+        }
+        
+        .mb-5 {
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: #3b5998;
+            color: white;
+        }
+    </style>
+
+    <script src="../js/modules/database.js"></script>
+</body>
+</html>

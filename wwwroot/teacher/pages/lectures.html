@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý bài giảng | GIÁO VIÊN | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/teacher.css">
+    <link rel="stylesheet" href="../css/lectures.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>GIÁO VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" id="logoutBtn" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Teacher Avatar">
+                <h3 id="teacherName"></h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li class="active"><a href="lectures.html"><i class="fas fa-book"></i> Quản lý bài giảng</a></li>
+                    <li><a href="student-evaluation.html"><i class="fas fa-user-graduate"></i> Đánh giá sinh viên</a>
+                    </li>
+                    <li><a href="progress.html"><i class="fas fa-chart-line"></i> Tiến độ học tập</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Quản lý bài giảng</h2>
+            </div>
+
+            <!-- Management Tools -->
+            <div class="management-tools">
+                <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" placeholder="Tìm kiếm bài giảng...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="filter-box">
+                        <select id="subjectFilter">
+                            <option value="">Tất cả môn học</option>
+                            <!-- Các options sẽ được load động từ API -->
+                        </select>
+                        <select id="courseFilter">
+                            <option value="">Tất cả khóa học</option>
+                            <!-- Các options sẽ được load động từ API -->
+                        </select>
+                        <select id="typeFilter">
+                            <option value="">Tất cả loại</option>
+                            <option value="baigiang">Bài giảng</option>
+                            <option value="baikiemtra">Bài kiểm tra</option>
+                            <option value="baithi">Bài thi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="uploadBtn" class="primary-btn"><i class="fas fa-upload"></i> Tải lên bài giảng</button>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <div class="filter-tab active">Tất cả bài giảng</div>
+                <div class="filter-tab">Bài giảng lý thuyết</div>
+                <div class="filter-tab">Bài kiểm tra</div>
+                <div class="filter-tab">Bài thi</div>
+                <div class="filter-tab">Gần đây nhất</div>
+                <div class="filter-tab">Được xem nhiều nhất</div>
+            </div>
+
+            <!-- Lectures Grid -->
+            <div class="lecture-cards">
+                <!-- Dữ liệu bài giảng sẽ được tải động từ JavaScript -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-container">
+                    <div class="copyright">
+                        <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                        <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tải lên bài giảng mới</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="subjectId">Môn học</label>
+                        <select id="subjectId" name="subjectId" required>
+                            <option value="">-- Chọn Môn học --</option>
+                            <!-- Danh sách môn học sẽ được load từ API -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseId">Khóa học</label>
+                        <select id="courseId" name="courseId" required>
+                            <option value="">-- Chọn Khóa học --</option>
+                            <!-- Danh sách khóa học sẽ được load từ API theo môn học đã chọn -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Tiêu đề bài giảng</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Mô tả bài giảng</label>
+                        <textarea id="content" name="content" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Loại bài giảng</label>
+                        <select id="type" name="type" required>
+                            <option value="">Chọn loại</option>
+                            <option value="baigiang">Bài giảng</option>
+                            <option value="baikiemtra">Bài kiểm tra</option>
+                            <option value="baithi">Bài thi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxHours">Thời gian học tối đa (giờ)</label>
+                        <input type="number" id="maxHours" name="maxHours" min="1" placeholder="Nhập số giờ học">
+                    </div>
+                    <div class="form-group">
+                        <label>Tải lên tài liệu</label>
+                        <div class="file-upload-container">
+                            <div class="file-upload" id="dropArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Kéo thả file hoặc click để chọn</p>
+                                <p class="upload-info">Hỗ trợ: PDF, DOCX, PPTX, MP4 (tối đa 100MB)</p>
+                                <input type="file" id="file" name="file" accept=".pdf,.docx,.pptx,.mp4" required>
+                            </div>
+                            <div id="filePreview" class="file-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn">Hủy</button>
+                        <button type="submit" class="submit-btn">Tải lên</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Load API trước -->
+    <script src="../../main/api.js"></script>
+    <script src="../js/modules/lectures.js"></script>
+    <script>
+        // Xử lý đăng xuất
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            AuthAPI.logout();
+        });
+    </script>
+</body>
+
+</html>

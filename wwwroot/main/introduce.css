@@ -1,0 +1,407 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Background Effects */
+.cyber-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+    z-index: -2;
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Styles */
+.cyber-header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 40px 0;
+    position: relative;
+}
+
+.cyber-glitch {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #00f0ff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    position: relative;
+    letter-spacing: 3px;
+}
+
+.cyber-subtitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.cyber-line {
+    height: 3px;
+    width: 100px;
+    background: linear-gradient(90deg, #00f0ff, #ff00ff);
+    margin: 20px auto;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+/* Team Grid Layout */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+/* Neon Card Styles */
+.neon-card {
+    position: relative;
+    background: rgba(20, 25, 45, 0.7);
+    border-radius: 15px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    height: 100%;
+}
+
+.neon-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.neon-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.neon-card:hover .neon-border {
+    border-color: rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3),
+                inset 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.neon-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Neon Avatar */
+.neon-avatar-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 25px;
+}
+
+.neon-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(0, 240, 255, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.neon-card:hover .neon-avatar {
+    border-color: #00f0ff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.neon-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.neon-avatar-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,240,255,0.3) 0%, rgba(0,240,255,0) 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.neon-card:hover .neon-avatar-glow {
+    opacity: 1;
+    animation: neon-pulse 2s infinite alternate;
+}
+
+.neon-avatar-ring {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border: 2px dashed rgba(0, 240, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+}
+
+.neon-card:hover .neon-avatar-ring {
+    border-color: rgba(0, 240, 255, 0.6);
+    animation: rotate-ring 8s linear infinite;
+}
+
+/* Neon Text Styles */
+.neon-name {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.neon-card:hover .neon-name {
+    color: #00f0ff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.neon-name:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #00f0ff, #ff00ff);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.neon-card:hover .neon-name:after {
+    opacity: 1;
+}
+
+.neon-position {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+}
+
+.neon-card:hover .neon-position {
+    color: #ff00ff;
+}
+
+/* Info Section */
+.neon-info {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.neon-info p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.neon-card:hover .neon-info p {
+    transform: translateX(5px);
+}
+
+.neon-info i {
+    margin-right: 10px;
+    color: #00f0ff;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.neon-card:hover .neon-info i {
+    opacity: 1;
+}
+
+/* Social Links */
+.neon-social {
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
+}
+
+.neon-social a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    color: #a0a0a0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.neon-social a:hover {
+    background: rgba(0, 240, 255, 0.2);
+    color: #00f0ff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+}
+
+/* Button */
+.neon-button {
+    padding: 10px 25px;
+    background: transparent;
+    border: 2px solid rgba(0, 240, 255, 0.3);
+    color: #00f0ff;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.neon-button:hover {
+    background: rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Reflection Effect */
+.neon-reflection {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(0, 240, 255, 0.1), transparent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.neon-card:hover .neon-reflection {
+    transform: scaleY(1);
+}
+
+/* Footer Styles */
+.cyber-footer {
+    margin-top: 40px;
+    padding: 40px 0 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    color: #00f0ff;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    margin-bottom: 10px;
+    color: #888;
+}
+
+.footer-section i {
+    margin-right: 10px;
+    color: #ff00ff;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes neon-pulse {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.8; }
+}
+
+@keyframes rotate-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .cyber-glitch {
+        font-size: 2.5rem;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .neon-avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.glitch-link {
+    text-decoration: none;
+    color: inherit;
+  }

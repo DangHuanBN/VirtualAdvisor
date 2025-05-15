@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lộ trình học tập | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/student.css">
+    <link rel="stylesheet" href="../css/learning-path.css">
+    <script src="../js/modules/common.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>SINH VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="../../index.html" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="student-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <!-- Toggle Button for Sidebar -->
+            <div class="sidebar-header">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="student-info">
+                <img id="student-avatar" src="https://randomuser.me/api/portraits/men/1.jpg" alt="Student Avatar">
+                <h3 id="student-name">Đang tải...</h3>
+                <p id="student-id">MSSV: ...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html" title="Trang chủ"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="courses.html" title="Khóa học của tôi"><i class="fas fa-book"></i> <span>Khóa học của tôi</span></a></li>
+                    <li class="active"><a href="learning-path.html" title="Lộ trình học tập"><i class="fas fa-road"></i> <span>Lộ trình học tập</span></a></li>
+                    <li><a href="results.html" title="Kết quả học tập"><i class="fas fa-chart-bar"></i> <span>Kết quả học tập</span></a></li>
+                    <li><a href="feedback.html" title="Đánh giá bài giảng"><i class="fas fa-comment"></i> <span>Đánh giá bài giảng</span></a></li>
+                    <li><a href="chatbot.html" title="Chat với AI"><i class="fas fa-robot"></i> <span>Chat với AI</span></a></li>
+                    <li><a href="notifications.html" title="Thông báo"><i class="fas fa-bell"></i> <span>Thông báo</span></a></li>
+                    <li><a href="profile.html" title="Thông tin cá nhân"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Learning Path Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Lộ trình học tập</h2>
+                <div class="path-filters">
+                    <select id="majorFilter">
+                        <option value="all">Đang tải...</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="progress-overview">
+                <div class="progress-bar-container">
+                    <div class="progress-label">
+                        <span>Tiến độ hoàn thành lộ trình</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Path Timeline -->
+            <div class="learning-path">
+                <!-- Các mục sẽ được tạo động bằng JavaScript -->
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Đang tải lộ trình học tập...</p>
+                </div>
+            </div>
+
+            <!-- Course Recommendations -->
+            <div class="recommendations-section">
+                <h3>Khóa học đề xuất tiếp theo</h3>
+                <div class="recommendations-grid">
+                    <!-- Các khóa học đề xuất sẽ được tạo động bằng JavaScript -->
+                    <div class="loading-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Đang tải khóa học đề xuất...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/student.js"></script>
+    
+    <!-- Setup dữ liệu mặc định nếu chưa có -->
+    <script>
+        // Tự động tạo dữ liệu người dùng nếu chưa có
+        (function setupUserData() {
+            console.log("Đang thiết lập dữ liệu người dùng dự phòng...");
+            
+            // Tìm userId trong localStorage hoặc URL
+            let userId = null;
+            
+            // Kiểm tra trong query string trước
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('userId')) {
+                userId = urlParams.get('userId');
+                console.log("Sử dụng userId từ URL: " + userId);
+            } else {
+                // Thử tìm trong localStorage
+                try {
+                    const userStr = localStorage.getItem('user');
+                    if (userStr) {
+                        const userData = JSON.parse(userStr);
+                        if (userData && userData.userId) {
+                            userId = userData.userId;
+                            console.log("Sử dụng userId từ localStorage['user']: " + userId);
+                        }
+                    }
+                    
+                    if (!userId) {
+                        const userDataStr = localStorage.getItem('userData');
+                        if (userDataStr) {
+                            const userData = JSON.parse(userDataStr);
+                            if (userData && userData.userId) {
+                                userId = userData.userId;
+                                console.log("Sử dụng userId từ localStorage['userData']: " + userId);
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Lỗi khi đọc dữ liệu người dùng:", e);
+                }
+            }
+        })();
+    </script>
+    
+    <!-- Tải AuthHelper trước khi sử dụng trong các file khác -->
+    <script src="../js/modules/auth-helper.js"></script>
+    
+    <!-- Thêm script để xóa cache và khởi động lại -->
+    <script>
+        // Xóa cache của fetch API
+        if (window.caches) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+            });
+        }
+        
+        // Force reload tất cả resource
+        const currentTime = new Date().getTime();
+        document.querySelectorAll('script').forEach(script => {
+            if (script.src && !script.src.includes('?v=')) {
+                script.src = script.src + '?v=' + currentTime;
+            }
+        });
+        
+        console.log('API REQUEST DEBUGGER: Kích hoạt');
+        // Ghi log tất cả fetch requests để debug
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options = {}) {
+            console.group('FETCH REQUEST');
+            console.log('URL:', url);
+            console.log('Headers:', options.headers || {});
+            console.groupEnd();
+            
+            // Đảm bảo có headers
+            if (!options.headers) {
+                options.headers = {};
+            }
+            
+            // Thêm token JWT nếu có
+            const token = localStorage.getItem('token');
+            if (token && !options.headers['Authorization']) {
+                options.headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            // Thêm ID người dùng nếu có
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            if (userData.userId && !options.headers['X-User-Id']) {
+                options.headers['X-User-Id'] = userData.userId;
+            }
+            
+            return originalFetch(url, options);
+        };
+    </script>
+    
+    <!-- Tải learning-path.js sau khi đã tải AuthHelper -->
+    <script src="../js/modules/learning-path.js?v=3"></script>
+</body>
+</html> 

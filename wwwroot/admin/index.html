@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUẢN TRỊ VIÊN | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>QUẢN TRỊ VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" id="logoutBtn" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Admin Avatar">
+                <h3 id="adminName">Admin Name</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li><a href="pages/courses.html"><i class="fas fa-book"></i> Quản lý học tập</a></li>
+                    <li><a href="pages/database.html"><i class="fas fa-database"></i> Quản lý kho dữ liệu</a></li>
+                    <li><a href="pages/users.html"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                    <li><a href="pages/permissions.html"><i class="fas fa-user-shield"></i> Phân quyền người dùng</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Tổng quan hệ thống</h2>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-users"></i></div>
+                    <div class="stats-info">
+                        <h3>Tổng người dùng</h3>
+                        <p class="stats-number" id="total-users">-</p>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-book"></i></div>
+                    <div class="stats-info">
+                        <h3>Tổng môn học</h3>
+                        <p class="stats-number" id="total-subjects">-</p>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="stats-info">
+                        <h3>Tổng khóa học</h3>
+                        <p class="stats-number" id="total-courses">-</p>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-database"></i></div>
+                    <div class="stats-info">
+                        <h3>Dung lượng CSDL</h3>
+                        <p class="stats-number" id="db-size">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access -->
+            <div class="section-container">
+                <div class="section-title">
+                    <h2>Truy cập nhanh</h2>
+                </div>
+                <div class="feature-grid">
+                    <a href="pages/courses.html" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Quản lý học tập</h3>
+                        <p>Thêm, sửa, xóa và quản lý các môn học trong hệ thống</p>
+                    </a>
+                    <a href="pages/database.html" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Quản lý kho dữ liệu</h3>
+                        <p>Quản lý cơ sở dữ liệu, sao lưu và phục hồi dữ liệu</p>
+                    </a>
+                    <a href="pages/users.html" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Quản lý người dùng</h3>
+                        <p>Quản lý tài khoản, phân quyền và thông tin người dùng</p>
+                    </a>
+                    <a href="pages/permissions.html" class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>Phân quyền người dùng</h3>
+                        <p>Thiết lập và quản lý quyền hạn cho từng nhóm người dùng</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/main/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Kiểm tra xác thực
+            if (!AuthAPI.isLoggedIn()) {
+                window.location.href = '/main/login.html';
+                return;
+            }
+            
+            // Lấy thông tin người dùng
+            const user = AuthAPI.getCurrentUser();
+            
+            // Kiểm tra vai trò
+            if (user && user.role !== 'Admin') {
+                // Nếu không phải admin, chuyển hướng đến trang tương ứng
+                if (user.role === 'Teacher') {
+                    window.location.href = '/teacher/index.html';
+                } else {
+                    window.location.href = '/student/index.html';
+                }
+                return;
+            }
+            
+            // Hiển thị tên người dùng
+            if (user) {
+                document.getElementById('adminName').textContent = user.fullName;
+            }
+            
+            // Xử lý đăng xuất
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                AuthAPI.logout();
+            });
+            
+            // Lấy dữ liệu thống kê
+            loadDashboardStats();
+        });
+        
+        // Hàm lấy dữ liệu thống kê
+        function loadDashboardStats() {
+            // Kiểm tra xem có cần sử dụng dữ liệu mẫu không
+            const useRealApi = false; // Đặt thành true khi API đã được triển khai
+            
+            if (useRealApi) {
+                // Sử dụng API thật khi đã triển khai
+                fetchDashboardStats();
+            } else {
+                // Sử dụng dữ liệu mẫu khi API chưa được triển khai
+                fetchMockStats();
+            }
+        }
+        
+        // Hàm mô phỏng API thống kê
+        async function fetchMockStats() {
+            // Mô phỏng delay của mạng
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Dữ liệu mẫu - có thể thay đổi để phản ánh dữ liệu thực tế
+            const sampleStats = {
+                userCount: 1250,
+                subjectCount: 48,
+                courseCount: 156,
+                dbSize: '28.6 GB'
+            };
+            
+            // Cập nhật UI với dữ liệu mẫu
+            updateStatsUI(sampleStats);
+            console.log('Đang sử dụng dữ liệu mẫu (API giả lập)');
+        }
+        
+        // Hàm lấy dữ liệu thống kê từ CSDL (chỉ sử dụng khi API đã được triển khai)
+        async function fetchDashboardStats() {
+            try {
+                // Gọi API để lấy thống kê
+                const response = await fetch('/api/admin/dashboard/stats');
+                
+                if (!response.ok) {
+                    throw new Error('Không thể lấy dữ liệu thống kê');
+                }
+                
+                const stats = await response.json();
+                
+                // Cập nhật UI với dữ liệu từ CSDL
+                updateStatsUI(stats);
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu thống kê:', error);
+                
+                // Sử dụng dữ liệu mẫu khi API chưa sẵn sàng
+                fetchMockStats();
+            }
+        }
+        
+        // Hàm cập nhật giao diện với dữ liệu thống kê
+        function updateStatsUI(stats) {
+            // Hiển thị tổng người dùng
+            if (stats.userCount !== undefined) {
+                document.getElementById('total-users').textContent = 
+                    stats.userCount.toLocaleString('vi-VN');
+            }
+            
+            // Hiển thị tổng môn học
+            if (stats.subjectCount !== undefined) {
+                document.getElementById('total-subjects').textContent = 
+                    stats.subjectCount.toLocaleString('vi-VN');
+            }
+            
+            // Hiển thị tổng khóa học
+            if (stats.courseCount !== undefined) {
+                document.getElementById('total-courses').textContent = 
+                    stats.courseCount.toLocaleString('vi-VN');
+            }
+            
+            // Hiển thị dung lượng CSDL
+            if (stats.dbSize !== undefined) {
+                document.getElementById('db-size').textContent = stats.dbSize;
+            }
+        }
+    </script>
+</body>
+</html> 

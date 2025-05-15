@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIEducation - Hệ Thống Khóa Học Đa Cấp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gradient: linear-gradient(45deg, #00f0ff, #ff00ff);
+            --gradient-hover: linear-gradient(45deg, #ff00ff, #00f0ff);
+            --primary-color: #00f0ff;
+            --secondary-color: #ff00ff;
+            --bg-dark: #0a0a1a;
+            --text-light: #e0e0e0;
+        }
+    </style>
+    <link rel="stylesheet" href="khoahoc.css">
+</head>
+<body>
+    <div class="cyber-background"></div>
+    <div class="particles-container"></div>
+    
+    <div class="container">
+        <header class="cyber-header">
+            <a href="index.html" class="glitch-link">
+                <div class="cyber-glitch" data-text="EDUTECH">AiEducation</div>
+            </a>
+            <p class="cyber-subtitle">HỆ THỐNG GIÁO DỤC THẾ HỆ MỚI</p>
+            <div class="cyber-line"></div>
+        </header>
+
+        <div class="cyber-home-button-fixed">
+            <a href="index.html" class="cyber-home-button">
+                <span class="cyber-home-button-icon"><i class="fas fa-home"></i></span>
+                <span class="cyber-home-button-text">Về trang chủ</span>
+                <span class="cyber-button-glitch"></span>
+            </a>
+        </div>
+        <main class="cyber-main">
+            <!-- Dữ liệu từ API sẽ được nạp vào đây -->
+            <div class="loading-indicator">
+                <div class="cyber-loading">
+                    <span class="cyber-loading-text">Đang tải dữ liệu...</span>
+                    <div class="cyber-loading-bar"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="cyber-footer">
+            <div class="cyber-footer-content">
+                <div class="cyber-footer-section about-section">
+                    <h3>AiEducation</h3>
+                    <p>Nền tảng giáo dục ứng dụng trí tuệ nhân tạo hàng đầu Việt Nam, giúp người học tiếp cận tri thức một cách thông minh và hiệu quả.</p>
+                    <div class="cyber-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="cyber-footer-section links-section">
+                    <h3>Liên kết</h3>
+                    <ul class="cyber-footer-links">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="khoahoc.html">Khóa học</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="introduce.html">Về chúng tôi</a></li>
+                    </ul>
+                </div>
+                <div class="cyber-footer-section contact-section">
+                    <h3>Liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Trường Cao Đẳng Công Nghệ Cao, Phố Nhuệ Giang, Phường Tây Mỗ, Nam Từ Liêm, Tp.Hà Nội.</p>
+                    <p><i class="fas fa-phone-alt"></i> 0919.268.246</p>
+                    <p><i class="fas fa-envelope"></i> chungkt@hht.edu.vn</p>
+                </div>
+            </div>
+            <div class="cyber-footer-bottom">
+                &copy; 2025 AIEducation. Bảo lưu mọi quyền.
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="subject-course-api.js"></script>
+    <script src="khoahoc.js"></script>
+</body>
+</html>

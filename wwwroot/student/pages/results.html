@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả học tập | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/student.css">
+    <link rel="stylesheet" href="../css/results.css">
+    <script src="../js/modules/common.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>SINH VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="../../index.html" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="student-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <!-- Toggle Button for Sidebar -->
+            <div class="sidebar-header">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="student-info">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Student Avatar">
+                <h3></h3>
+                <p></p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html" title="Trang chủ"><i class="fas fa-home"></i> <span>Trang chủ</span></a></li>
+                    <li><a href="courses.html" title="Khóa học của tôi"><i class="fas fa-book"></i> <span>Khóa học của tôi</span></a></li>
+                    <li><a href="learning-path.html" title="Lộ trình học tập"><i class="fas fa-road"></i> <span>Lộ trình học tập</span></a></li>
+                    <li class="active"><a href="results.html" title="Kết quả học tập"><i class="fas fa-chart-bar"></i> <span>Kết quả học tập</span></a></li>
+                    <li><a href="feedback.html" title="Đánh giá bài giảng"><i class="fas fa-comment"></i> <span>Đánh giá bài giảng</span></a></li>
+                    <li><a href="chatbot.html" title="Chat với AI"><i class="fas fa-robot"></i> <span>Chat với AI</span></a></li>
+                    <li><a href="notifications.html" title="Thông báo"><i class="fas fa-bell"></i> <span>Thông báo</span></a></li>
+                    <li><a href="profile.html" title="Thông tin cá nhân"><i class="fas fa-user"></i> <span>Thông tin cá nhân</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Results Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1 class="page-title" style="color: black;">Kết quả học tập</h1>
+                <div class="results-filters">
+                    <div class="course-select">
+                        <select id="courseFilter" class="styled-select">
+                            <option value="all">Tất cả khóa học</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Info -->
+            <div class="course-info">
+                <div class="course-title">
+                    <h3>Khóa học mẫu</h3>
+                </div>
+            </div>
+
+            <!-- Grades by Modules -->
+            <div class="grades-section">
+                <h3>Chi tiết kết quả học tập</h3>
+                <div class="grades-table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Tên bài học</th>
+                                <th>Loại bài</th>
+                                <th>Tiến độ</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dữ liệu sẽ được điền bởi JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Assessment Results - ẩn đi -->
+            <div class="results-section" style="display: none;">
+                <h3>Kết quả kiểm tra</h3>
+                <div class="assessment-cards">
+                    <!-- Dữ liệu sẽ được điền bởi JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Đang tải dữ liệu...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/student.js"></script>
+    <script src="../js/modules/auth-helper.js"></script>
+    <script src="../js/modules/results.js"></script>
+</body>
+</html> 

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý học tập | QUẢN TRỊ VIÊN | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/courses.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>QUẢN TRỊ VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="logout-btn" id="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Admin Avatar">
+                <h3 id="admin-name">Admin Name</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li class="active"><a href="courses.html"><i class="fas fa-book"></i> Quản lý học tập</a></li>
+                    <li><a href="database.html"><i class="fas fa-database"></i> Quản lý kho dữ liệu</a></li>
+                    <li><a href="users.html"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                    <li><a href="permissions.html"><i class="fas fa-user-shield"></i> Phân quyền người dùng</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Quản lý học tập</h2>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab-item active" data-tab="subjects">
+                    <i class="fas fa-book-open"></i> Môn học (Subjects)
+                </div>
+                <div class="tab-item" data-tab="courses">
+                    <i class="fas fa-graduation-cap"></i> Khóa học (Courses)
+                </div>
+            </div>
+
+            <!-- Subjects Tab Content -->
+            <div class="tab-content active" id="subjects-tab">
+                <!-- Subject Management Tools -->
+                <div class="management-tools">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <input type="text" placeholder="Tìm kiếm môn học...">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="primary-btn" id="add-subject-btn"><i class="fas fa-plus"></i> Thêm môn học mới</button>
+                    </div>
+                </div>
+
+                <!-- Subjects List -->
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="subjects-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all-subjects"></th>
+                                <th>ID</th>
+                                <th>Tên môn học</th>
+                                <th>Số tín chỉ</th>
+                                <th>Số khóa học</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dữ liệu môn học sẽ được tải từ API và hiển thị ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination for Subjects -->
+                <div class="pagination">
+                    <!-- Phân trang sẽ được tạo động bằng JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Courses Tab Content -->
+            <div class="tab-content" id="courses-tab">
+                <!-- Course Management Tools -->
+                <div class="management-tools">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <input type="text" placeholder="Tìm kiếm khóa học...">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="filter-box">
+                            <select id="subject-filter">
+                                <option value="">Tất cả môn học</option>
+                                <!-- Danh sách môn học sẽ được tải từ API -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="primary-btn" id="add-course-btn"><i class="fas fa-plus"></i> Thêm khóa học mới</button>
+                    </div>
+                </div>
+
+                <!-- Courses List -->
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="courses-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all-courses"></th>
+                                <th>ID</th>
+                                <th>Tên khóa học</th>
+                                <th>Môn học</th>
+                                <th>Loại</th>
+                                <th>Số bài giảng</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dữ liệu khóa học sẽ được tải từ API và hiển thị ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination for Courses -->
+                <div class="pagination">
+                    <!-- Phân trang sẽ được tạo động bằng JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">
+                <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/modules/common.js"></script>
+    <script src="../js/modules/subjects.js"></script>
+    <script src="../js/modules/courses.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="/main/api.js"></script>
+    
+    <script>
+        // Khởi tạo các module
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị tên người dùng
+            const adminNameElement = document.getElementById('admin-name');
+            const userData = localStorage.getItem('userInfo') || localStorage.getItem('user');
+            
+            if (userData && adminNameElement) {
+                const user = JSON.parse(userData);
+                adminNameElement.textContent = user.fullName || 'Admin';
+            }
+            
+            // Xử lý sự kiện đăng xuất
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Xóa dữ liệu người dùng
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userInfo');
+                    localStorage.removeItem('user');
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('userInfo');
+                    // Chuyển hướng về trang đăng nhập
+                    window.location.href = '/main/login.html';
+                });
+            }
+            
+            if (typeof initSubjectsModule === 'function') {
+                initSubjectsModule();
+            }
+            
+            if (typeof initCoursesModule === 'function') {
+                initCoursesModule();
+            }
+            
+            // Thiết lập tabs
+            const tabs = document.querySelectorAll('.tab-item');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Xóa active class khỏi tất cả tabs và tab contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Thêm active class cho tab được chọn
+                    this.classList.add('active');
+                    
+                    // Hiển thị tab content tương ứng
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

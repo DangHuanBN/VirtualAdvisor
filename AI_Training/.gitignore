@@ -1,0 +1,33 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+
+# Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+.Python
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# MacOS / Linux / Windows system files
+.DS_Store
+Thumbs.db
+
+# Python-specific
+pip-log.txt
+pip-delete-this-directory.txt
+__pypackages__/
+
+# Jupyter Notebook checkpoints
+config.py

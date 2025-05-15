@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Trang Giáo Viên | AiEducation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/teacher.css">
+    <script src="js/modules/common.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/anh/z6500003339608_4464c998e6b622928c1d65ef8166d187.jpg" alt="">
+                <span class="logo-text">
+                    <span class="ai-red">AI</span><span class="edu-green">Education</span>
+                  </span>
+            </div>
+            <div class="admin-title">
+                <h1>GIÁO VIÊN</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" id="logoutBtn" class="logout-btn">Đăng xuất</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="admin-info">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Teacher Avatar">
+                <h3 id="teacherName"></h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="index.html"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
+                    <li><a href="pages/lectures.html"><i class="fas fa-book"></i> Quản lý bài giảng</a></li>
+                    <li><a href="pages/student-evaluation.html"><i class="fas fa-user-graduate"></i> Đánh giá sinh viên</a></li>
+                    <li><a href="pages/progress.html"><i class="fas fa-chart-line"></i> Tiến độ học tập</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="page-title">
+                <h2>Tổng quan</h2>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stats-card" data-type="lectures">
+                    <div class="stats-icon"><i class="fas fa-book"></i></div>
+                    <div class="stats-info">
+                        <h3>Bài giảng</h3>
+                        <p class="stats-number" data-stat="lectures">0</p>
+                        <p class="stats-detail">Loại: Bài giảng</p>
+                    </div>
+                </div>
+                <div class="stats-card" data-type="quizzes">
+                    <div class="stats-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <div class="stats-info">
+                        <h3>Bài kiểm tra</h3>
+                        <p class="stats-number" data-stat="quizzes">0</p>
+                        <p class="stats-detail">Loại: Bài kiểm tra</p>
+                    </div>
+                </div>
+                <div class="stats-card" data-type="exams">
+                    <div class="stats-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="stats-info">
+                        <h3>Bài thi</h3>
+                        <p class="stats-number" data-stat="exams">0</p>
+                        <p class="stats-detail">Loại: Bài thi</p>
+                    </div>
+                </div>
+                <div class="stats-card" data-type="students">
+                    <div class="stats-icon"><i class="fas fa-user-graduate"></i></div>
+                    <div class="stats-info">
+                        <h3>Sinh viên</h3>
+                        <p class="stats-number" data-stat="students">0</p>
+                        <p class="stats-detail">Đã đăng ký khóa học</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phần Khóa học đang dạy -->
+            <div class="dashboard-card">
+                <div class="card-header"> 
+                    <h2 class="card-title">
+                        <i class="fas fa-book"></i>
+                        <span>Khóa học gần đây</span>
+                    </h2>
+                    <a href="pages/lectures.html" class="view-all">Xem tất cả <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="card-body">
+                    <div class="courses-section">
+                        <div class="courses-container" id="currentCourses">
+                            <!-- Nội dung khóa học đang dạy sẽ được thêm vào đây qua JavaScript -->
+                            <div class="loading-placeholder">
+                                <div class="loading-spinner"></div>
+                                <p>Đang tải dữ liệu...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-container">
+                    <div class="copyright">
+                        <p>&copy; 2025 AiEducation. Bảo lưu mọi quyền.</p>
+                        <p class="text-center">Đề tài được tài trợ bởi đề tài mã số CT07/03-2024-3 theo Quyết định số 4966/QĐ-UBND, ngày 23/9/2024</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/main/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Kiểm tra xác thực
+            if (!AuthAPI.isLoggedIn()) {
+                window.location.href = '/main/login.html';
+                return;
+            }
+            
+            // Lấy thông tin người dùng
+            const user = AuthAPI.getCurrentUser();
+            
+            // Kiểm tra vai trò
+            if (user && user.role !== 'Teacher') {
+                // Nếu không phải teacher, chuyển hướng đến trang tương ứng
+                if (user.role === 'Admin') {
+                    window.location.href = '/admin/index.html';
+                } else {
+                    window.location.href = '/student/index.html';
+                }
+                return;
+            }
+            
+            // Hiển thị tên người dùng
+            if (user) {
+                console.log("Thông tin user:", user);
+                const teacherNameElement = document.getElementById('teacherName');
+                const displayName = user.fullName || user.username || 'Giáo viên';
+                teacherNameElement.textContent = displayName;
+                console.log("Tên giảng viên đã được cập nhật:", displayName);
+            } else {
+                document.getElementById('teacherName').textContent = 'Giáo viên';
+                console.warn("Không có thông tin người dùng");
+            }
+            
+            // Xử lý đăng xuất
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                AuthAPI.logout();
+            });
+            
+            // Hàm gọi API giảng viên
+            async function fetchTeacherData() {
+                // Khởi tạo API helper và baseUrl
+                const baseUrl = '/api';
+                const authToken = localStorage.getItem('token');
+                
+                // Hiển thị thông báo đang tải
+                document.getElementById('currentCourses').innerHTML = `
+                    <div class="loading-placeholder">
+                        <div class="loading-spinner"></div>
+                        <p>Đang tải dữ liệu từ máy chủ...</p>
+                    </div>
+                `;
+                
+                try {
+                    // 1. Lấy dữ liệu bài giảng để thống kê
+                    console.log("Đang gọi API lecture/teacher...");
+                    const lecturesResponse = await fetch(`${baseUrl}/lecture/teacher`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`,
+                            'Content-Type': 'application/json',
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
+                    
+                    console.log("Trạng thái API lecture/teacher:", lecturesResponse.status);
+                    
+                    if (!lecturesResponse.ok) {
+                        throw new Error(`Không thể kết nối tới API: ${lecturesResponse.status}`);
+                    }
+                    
+                    const lecturesText = await lecturesResponse.text();
+                    let lecturesData;
+                    try {
+                        lecturesData = JSON.parse(lecturesText);
+                    } catch (parseError) {
+                        console.error("Lỗi parse JSON:", parseError);
+                        throw new Error("Dữ liệu API không hợp lệ");
+                    }
+                    
+                    const lectures = lecturesData.data || [];
+                    console.log(`Số lượng bài giảng: ${lectures.length}`);
+                    
+                    // Tổng hợp dữ liệu thống kê từ bài giảng
+                    let lectureCount = 0;
+                    let quizCount = 0;
+                    let examCount = 0;
+                    let studentCount = 0;
+                    
+                    // Đếm số lượng bài giảng theo loại
+                    lectures.forEach(lecture => {
+                        if (lecture.type === 'baigiang') {
+                            lectureCount++;
+                        } else if (lecture.type === 'baikiemtra') {
+                            quizCount++;
+                        } else if (lecture.type === 'baithi') {
+                            examCount++;
+                        }
+                        
+                        // Cộng dồn số lượng sinh viên (nếu có thông tin)
+                        if (lecture.studentCount) {
+                            studentCount += lecture.studentCount;
+                        }
+                    });
+                    
+                    // Cập nhật thống kê
+                    document.querySelector('[data-stat="lectures"]').textContent = lectureCount.toString();
+                    document.querySelector('[data-stat="quizzes"]').textContent = quizCount.toString();
+                    document.querySelector('[data-stat="exams"]').textContent = examCount.toString();
+                    document.querySelector('[data-stat="students"]').textContent = studentCount.toString() || "N/A";
+                    
+                    // 2. Lấy danh sách môn học
+                    const subjectsResponse = await fetch(`${baseUrl}/subjects`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`,
+                            'Content-Type': 'application/json',
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
+                    
+                    if (!subjectsResponse.ok) {
+                        throw new Error('Không thể lấy dữ liệu môn học');
+                    }
+                    
+                    const subjectsData = await subjectsResponse.json();
+                    const subjects = subjectsData.data || [];
+                    
+                    // 3. Nhóm bài giảng theo môn học và khóa học
+                    const coursesBySubject = {};
+                    
+                    // Khởi tạo đối tượng lưu trữ cho mỗi môn học
+                    subjects.forEach(subject => {
+                        coursesBySubject[subject.subjectId] = {
+                            subject: subject,
+                            courses: {}
+                        };
+                    });
+                    
+                    // Nhóm bài giảng theo khóa học và môn học
+                    lectures.forEach(lecture => {
+                        if (!lecture.courseId || !lecture.subjectId) return;
+                        
+                        // Nếu môn học chưa tồn tại, tạo mới
+                        if (!coursesBySubject[lecture.subjectId]) {
+                            coursesBySubject[lecture.subjectId] = {
+                                subject: {
+                                    subjectId: lecture.subjectId,
+                                    subjectName: lecture.subjectName || `Môn học ID: ${lecture.subjectId}`,
+                                    code: lecture.subjectCode || '',
+                                    credits: lecture.credits || 0
+                                },
+                                courses: {}
+                            };
+                        }
+                        
+                        // Thêm khóa học nếu chưa có
+                        if (!coursesBySubject[lecture.subjectId].courses[lecture.courseId]) {
+                            coursesBySubject[lecture.subjectId].courses[lecture.courseId] = {
+                                id: lecture.courseId,
+                                name: lecture.courseName || `Khóa học ID: ${lecture.courseId}`,
+                                subjectId: lecture.subjectId,
+                                typeLabel: lecture.courseType || 'Tuần tự',
+                                students: 0,
+                                lectures: 0,
+                                uploadDate: null
+                            };
+                        }
+                        
+                        // Tăng số lượng bài giảng
+                        coursesBySubject[lecture.subjectId].courses[lecture.courseId].lectures++;
+                        
+                        // Cập nhật ngày tải lên gần nhất
+                        const lectureDate = new Date(lecture.uploadDate);
+                        if (!coursesBySubject[lecture.subjectId].courses[lecture.courseId].uploadDate || 
+                            lectureDate > new Date(coursesBySubject[lecture.subjectId].courses[lecture.courseId].uploadDate)) {
+                            coursesBySubject[lecture.subjectId].courses[lecture.courseId].uploadDate = lecture.uploadDate;
+                        }
+                    });
+                    
+                    // Tạo HTML để hiển thị 3 khóa học nằm ngang
+                    let coursesHTML = '';
+                    
+                    // Tạo HTML cho khóa học theo layout ngang
+                    let allCourses = [];
+                    
+                    // Lấy tất cả khóa học từ các môn học
+                    Object.values(coursesBySubject).forEach(group => {
+                        const courses = Object.values(group.courses);
+                        courses.forEach(course => {
+                            course.subjectName = group.subject.subjectName;
+                            allCourses.push(course);
+                        });
+                    });
+                    
+                    // Sắp xếp theo ngày tải lên mới nhất
+                    allCourses.sort((a, b) => {
+                        if (!a.uploadDate) return 1;
+                        if (!b.uploadDate) return -1;
+                        return new Date(b.uploadDate) - new Date(a.uploadDate);
+                    });
+                    
+                    // Giới hạn chỉ hiển thị 3 khóa học
+                    const displayCourses = allCourses.slice(0, 3);
+                    
+                    // Tạo HTML hiển thị ngang
+                    coursesHTML = '<div class="courses-grid">';
+                    
+                    displayCourses.forEach(course => {
+                        const uploadDate = course.uploadDate ? new Date(course.uploadDate).toLocaleDateString('vi-VN') : 'N/A';
+                        
+                        // Lấy các bài giảng thuộc khóa học này
+                        const courseLectures = lectures.filter(lecture => lecture.courseId === course.id);
+                        
+                        // HTML cho khóa học
+                        coursesHTML += `
+                            <div class="course-box">
+                                <div class="course-header">
+                                    <h3>${course.name}</h3>
+                                    <span class="course-subject">${course.subjectName}</span>
+                                </div>
+                                <div class="course-body">
+                                    <div class="course-info">
+                                        <div><i class="fas fa-users"></i> ${course.students || 'N/A'} sinh viên</div>
+                                        <div><i class="fas fa-file-alt"></i> ${courseLectures.length} bài giảng</div>
+                                        <div><i class="fas fa-calendar-plus"></i> Ngày tải lên: ${uploadDate}</div>
+                                    </div>
+                                </div>
+                                <div class="lecture-slider-container">
+                                    <h4 class="lecture-slider-title">Bài giảng</h4>
+                                    <div class="lecture-slider">`;
+                        
+                        // Thêm các bài giảng vào slider
+                        if (courseLectures.length > 0) {
+                            courseLectures.forEach(lecture => {
+                                const lectureDate = lecture.uploadDate ? new Date(lecture.uploadDate).toLocaleDateString('vi-VN') : 'N/A';
+                                let lectureType = '';
+                                let typeIcon = '';
+                                
+                                switch(lecture.type) {
+                                    case 'baigiang':
+                                        lectureType = 'Bài giảng';
+                                        typeIcon = 'fa-book';
+                                        break;
+                                    case 'baikiemtra':
+                                        lectureType = 'Bài kiểm tra';
+                                        typeIcon = 'fa-clipboard-check';
+                                        break;
+                                    case 'baithi':
+                                        lectureType = 'Bài thi';
+                                        typeIcon = 'fa-file-alt';
+                                        break;
+                                    default:
+                                        lectureType = 'Bài giảng';
+                                        typeIcon = 'fa-book';
+                                }
+                                
+                                coursesHTML += `
+                                    <div class="lecture-card">
+                                        <div class="lecture-type"><i class="fas ${typeIcon}"></i> ${lectureType}</div>
+                                        <h4 class="lecture-title">${lecture.title}</h4>
+                                        <div class="lecture-date"><i class="far fa-calendar-alt"></i> ${lectureDate}</div>
+                                    </div>
+                                `;
+                            });
+                        } else {
+                            coursesHTML += `
+                                <div class="no-lectures">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>Chưa có bài giảng nào</p>
+                                </div>
+                            `;
+                        }
+                        
+                        coursesHTML += `
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    coursesHTML += '</div>';
+                    
+                    // Hiển thị khóa học
+                    const coursesContainer = document.getElementById('currentCourses');
+                    coursesContainer.innerHTML = coursesHTML || '<div class="no-data">Không có khóa học nào</div>';
+                    
+                } catch (error) {
+                    console.error('Lỗi khi tải dữ liệu:', error);
+                    document.getElementById('currentCourses').innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Không thể tải dữ liệu: ${error.message}</p>
+                            <button onclick="location.reload()">Thử lại</button>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Gọi hàm tải dữ liệu
+            fetchTeacherData();
+        });
+    </script>
+</body>
+</html> 
